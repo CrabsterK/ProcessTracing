@@ -32,4 +32,40 @@ textarea {
 .nav-item {
     color: #39b7ee;
 }
+.navbar-dark .navbar-nav .nav-link {
+    color: #415bec;
+    text-shadow:1px 1px 4px black;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #85c5ff;
+    text-shadow: 1px 1px 4px black;
+}
+.navbar-dark .navbar-nav .nav-link:active {
+    color: #85c5ff;
+}
 
+#FAQ{
+    text-align:justify;
+}
+.FAQHeader {
+    text-align:center;
+    margin-top: 3%;
+
+}
+.FAQHeaderRight {
+    text-align: right;
+    margin-top: 3%;
+    margin-right: 5%;
+}
+
+.FAQimg{
+    width:50%;
+}
+@media only screen and (max-width: 1500px) {
+    .FAQimg {
+        display: none;
+    }
+}
+#FAQ > .row{
+    margin:4%;
+}
