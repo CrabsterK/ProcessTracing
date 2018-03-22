@@ -2,46 +2,126 @@
 @{
     ViewBag.Title = "Wykresy";
 }
+
 <script src="~/Scripts/Chart.js"></script>
+<div class="siteContent" style="display:none;">
+    <div class="alert alert-primary" role="alert">
+        W tablicy wystąpiła aktualizacja <a style="font-weight: 600" href="javascript:window.location.href=window.location.href">Odśwież</a>
+    </div>
+</div>
+
 <div class="siteContent">
-    <canvas id="myChart" width="20%"></canvas>
-    <script>
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Artifacts", "TODO", "Doing", "Testing", "Done"],
-                datasets: [{
-                    label: 'Cards',
-                    data: [12, 19, 3, 5, 2],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+    <div class="row">
+        <div class="col-6">
+            <canvas id="lineChart"></canvas>
+            <script>
+                new Chart(document.getElementById("lineChart"), {
+                    type: 'line',
+                    data: {
+                        labels: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
+                        datasets: [{
+                            data: [2, 1, 5, 4, 6, 7, 5, 2, 4, 8, 3, 7],
+                            label: "Mariusz Konopka",
+                            borderColor: "#3e95cd",
+                            fill: false
+                        }, {
+                            data: [4, 6, 7, 8, 5, 4, 6, 8, 3, 5, 3, 2],
+                            label: "Andrzej Grzewczak",
+                            borderColor: "#8e5ea2",
+                            fill: false
+                        }, {
+                            data: [2, 2, 3, 2, 3, 4, 2, 5, 1, 6, 1, 2],
+                            label: "Jan Próbnik",
+                            borderColor: "#3cba9f",
+                            fill: false
                         }
-                    }]
-                }
-            }
-        });
-    </script>
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Ilość zadań przypisanych do osób dla procesu lakierowania w poszczególnych miesiącach'
+                        }
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="col-6">
+            <canvas id="pieChart"></canvas>
+            <script>
+                new Chart(document.getElementById("pieChart"), {
+                    type: 'pie',
+                    data: {
+                        labels: ["Cięcie", "Szlifowanie", "Farbowanie", "Lakierowanie", "Budowanie konstrukcji"],
+                        datasets: [{
+                            label: "Population (millions)",
+                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                            data: [28, 32, 12, 22, 43]
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Ilość zadań w każdym procesie'
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <canvas id="doughnutChart"></canvas>
+
+            <script>
+                new Chart(document.getElementById("doughnutChart"), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ["Cięcie", "Szlifowanie", "Farbowanie", "Lakierowanie", "Budowanie konstrukcji"],
+                        datasets: [
+                            {
+                                label: "Zamówienie",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                                data: [2, 3, 2, 2, 5]
+                            }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Średnia ilość czasu spędzonego w danym procesie'
+                        }
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="col-6">
+            <canvas id="barChartHorizontal"></canvas>
+            <script>
+                new Chart(document.getElementById("barChartHorizontal"), {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ["Cięcie", "Szlifowanie", "Farbowanie", "Lakierowanie", "Budowanie konstrukcji"],
+                        datasets: [
+                            {
+                                label: "Ilość obób w dziale",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                                data: [5, 10, 7, 3, 10]
+                            }
+                        ]
+                    },
+                    options: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Ilość osób przypisanych do danych procesów'
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
 </div>

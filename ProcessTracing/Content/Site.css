@@ -69,3 +69,11 @@ textarea {
 #FAQ > .row{
     margin:4%;
 }
+
+.container{
+    max-width:1280px;
+}
+.progress-bar {
+    margin: auto;
+    border: 1px solid black;
+}
