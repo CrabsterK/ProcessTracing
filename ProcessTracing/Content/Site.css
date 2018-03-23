@@ -10,8 +10,14 @@
     border: 2px solid #c0c0c0;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+    
 }
-
+.chartsPage  {
+    min-width: 500px;
+}
+.navbar {
+    min-width: 500px;
+}
 
 #carouselExampleControls {
     width: 60%;
@@ -66,14 +72,44 @@ textarea {
         display: none;
     }
 }
+
 #FAQ > .row{
     margin:4%;
 }
 
 .container{
-    max-width:1280px;
+    max-width:1600px;
+    width: 80%;
+}
+@media only screen and (max-width: 1100px) {
+    .container {
+        width: 99%;
+    }
 }
 .progress-bar {
     margin: auto;
     border: 1px solid black;
+}
+.chart{
+    max-width:80% !important;
+    margin: auto;
+}
+@media only screen and (min-width: 1200px) {
+    .chart {
+        max-width: 60% !important;
+        margin: auto;
+    }
+}
+#newActivityImg{
+    position: sticky;
+    top: 90%;
+    left: 10%;
+    width: 5%;
+    z-index: 9999;
+    display: none;
+    min-width: 40px;
+}
+#someBtn{
+    position:absolute;
+    left:1%;
 }
