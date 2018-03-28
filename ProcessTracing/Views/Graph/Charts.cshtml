@@ -4,16 +4,24 @@
 }
 
 <script src="~/Scripts/Chart.js"></script>
-<div class="siteContent" style="display:none;">
-    <div class="alert alert-primary" role="alert">
-        W tablicy wystąpiła aktualizacja <a style="font-weight: 600" href="javascript:window.location.href=window.location.href">Odśwież</a>
-    </div>
-</div>
 
-<div class="siteContent">
-    <div class="row">
-        <div class="col-6">
-            <canvas id="lineChart"></canvas>
+<button id="someBtn" class="btn btn-primary" onfocus="showNewActivityAlert()">
+    showAlert
+</button>
+
+      <div id="newActivityAlert" class="alert alert-primary collapse">
+          <a href="./charts"><img src="~/Content/Images/reload.png" style="width:4%" /></a>
+              <a id="linkClose" href="#" onclick="closeNewActivityAlert()" class="close">&times;</a>
+              <strong>Info:  </strong> Nowa aktywność na Twojej tablicy
+
+</div>
+      <a href="./charts"><img id="newActivityImg" src="~/Content/Images/reload.png"></a>
+
+
+<div id="charts" class="siteContent chartsPage">
+    <div class="row ">
+        <div class="col chart" style="max-height:80% !important;">
+            <canvas id="lineChart" class=""></canvas>
             <script>
                 new Chart(document.getElementById("lineChart"), {
                     type: 'line',
@@ -39,6 +47,7 @@
                     },
                     options: {
                         title: {
+                            responsive: true,
                             display: true,
                             text: 'Ilość zadań przypisanych do osób dla procesu lakierowania w poszczególnych miesiącach'
                         }
@@ -46,8 +55,9 @@
                 });
             </script>
         </div>
-
-        <div class="col-6">
+    </div>
+    <div class="row">
+        <div class="col chart">
             <canvas id="pieChart"></canvas>
             <script>
                 new Chart(document.getElementById("pieChart"), {
@@ -61,6 +71,7 @@
                         }]
                     },
                     options: {
+                        responsive: true,
                         title: {
                             display: true,
                             text: 'Ilość zadań w każdym procesie'
@@ -72,7 +83,36 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col chart">
+            <canvas id="barChartHorizontal"></canvas>
+            <script>
+                new Chart(document.getElementById("barChartHorizontal"), {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ["Cięcie", "Szlifowanie", "Farbowanie", "Lakierowanie", "Budowanie konstrukcji"],
+                        datasets: [
+                            {
+                                label: "Ilość obób w dziale",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                                data: [5, 10, 7, 3, 10]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Ilość osób przypisanych do danych procesów'
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col chart">
             <canvas id="doughnutChart"></canvas>
 
             <script>
@@ -89,6 +129,7 @@
                         ]
                     },
                     options: {
+                        responsive: true,
                         title: {
                             display: true,
                             text: 'Średnia ilość czasu spędzonego w danym procesie'
@@ -97,31 +138,6 @@
                 });
             </script>
         </div>
-
-        <div class="col-6">
-            <canvas id="barChartHorizontal"></canvas>
-            <script>
-                new Chart(document.getElementById("barChartHorizontal"), {
-                    type: 'horizontalBar',
-                    data: {
-                        labels: ["Cięcie", "Szlifowanie", "Farbowanie", "Lakierowanie", "Budowanie konstrukcji"],
-                        datasets: [
-                            {
-                                label: "Ilość obób w dziale",
-                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                                data: [5, 10, 7, 3, 10]
-                            }
-                        ]
-                    },
-                    options: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Ilość osób przypisanych do danych procesów'
-                        }
-                    }
-                });
-            </script>
-        </div>
     </div>
 </div>
+<script src="~/Scripts/Chart.js"></script>

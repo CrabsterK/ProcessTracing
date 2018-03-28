@@ -9,7 +9,7 @@ namespace ProcessTracing.Controllers
     public class GraphController : Controller
     {
         // GET: Graph
-        public ActionResult Index()
+        public ActionResult Charts()
         {
             return View();
         }
