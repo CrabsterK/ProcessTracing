@@ -18,7 +18,8 @@ namespace ProcessTracing.Controllers
         public ActionResult Index()
         {
 
-            var providet = HttpContext.GetOwinContext().Authentication.GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption)).ToList();
+            var provider = HttpContext.GetOwinContext().Authentication.GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption)).ToList();
+            var sth = 6;
             return View();
         }
     }
