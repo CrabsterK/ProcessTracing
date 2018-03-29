@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ProcessTracing.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,7 +26,7 @@
             </ul>
         </div>
         <form class="form-inline">
-            <a href="/" class="nav-link"><button class="btn btn-outline-primary">Zaloguj się</button></a>
+            @Html.Partial("_LoginPartial")
         </form>
     </nav>
 

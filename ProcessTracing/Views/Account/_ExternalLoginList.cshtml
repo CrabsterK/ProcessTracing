@@ -1,0 +1,17 @@
+﻿@model ProcessTracing.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+<h4> fajnie jakby po kliknięciu na zaloguj od razu przekierowywał na stronę trello , bez tej stronki, ale na razie nie tego nie zrobiłam  więc jest tak :D</h4>
+<hr />
+@{
+        var p = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes().FirstOrDefault();
+               
+            using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Zaloguj się użając @p.Caption account">Zaloguj się</button>
+            </div>
+           }   
+    }
+}

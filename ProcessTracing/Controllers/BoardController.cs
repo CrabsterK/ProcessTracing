@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
+using ProcessTracing.Models;
 
 namespace ProcessTracing.Controllers
 {
@@ -17,9 +18,9 @@ namespace ProcessTracing.Controllers
         // GET: Board
         public ActionResult Index()
         {
-
+            var model =new Login();
             var provider = HttpContext.GetOwinContext().Authentication.GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption)).ToList();
-            var sth = 6;
+            
             return View();
         }
     }
