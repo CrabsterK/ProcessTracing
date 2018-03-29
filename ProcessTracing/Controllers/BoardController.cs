@@ -18,8 +18,8 @@ namespace ProcessTracing.Controllers
         // GET: Board
         public ActionResult Index()
         {
-            var model =new Login();
-            var provider = HttpContext.GetOwinContext().Authentication.GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption)).ToList();
+           
+            //var provider = HttpContext.GetOwinContext().Authentication.GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption)).ToList();
             
             return View();
         }
