@@ -32,4 +32,5 @@ namespace ProcessTracing.Models
             return new ApplicationDbContext();
         }
     }
+
 }
