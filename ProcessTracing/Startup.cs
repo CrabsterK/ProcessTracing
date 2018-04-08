@@ -53,7 +53,7 @@ namespace ProcessTracing
             app.UseTrelloAuthentication(
                key: "f27de49532bf871ca048feeb9e3ea8dc",
                secret: "909339568897d523ccc5ea3c186a86f53d6175826949cf4d82fd7c32b88ddb94",
-               appName: "ZPI nasz apka przykladowa nazwa"
+               appName: "Process tracing"
              );
            
         }

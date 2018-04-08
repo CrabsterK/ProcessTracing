@@ -55,7 +55,6 @@ namespace ProcessTracing.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    var temp = loginInfo;
                     return RedirectToLocal(returnUrl);
                 default:
                     // If the user does not have an account, then prompt the user to create an account

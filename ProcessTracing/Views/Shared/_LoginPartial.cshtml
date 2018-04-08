@@ -1,29 +1,21 @@
 ﻿@using Microsoft.AspNet.Identity
-@using Microsoft.Owin.Security
-@using ProcessTracing.Models
-@model ProcessTracing.Models.ExternalLoginListViewModel
-@{
-                /**/
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
 
-
-                var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes().FirstOrDefault();
-                if (Request.IsAuthenticated)
-                {
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                            </li>
-                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                        </ul>
-                    }
-                }
-                else
-                {
-                    <button class="btn btn-outline-primary">@Html.ActionLink("Zaloguj się", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</button>
-                }
-
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
 }
