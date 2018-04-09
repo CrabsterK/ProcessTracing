@@ -12,13 +12,16 @@ namespace ProcessTracing.Models
         [Key]
         public string Id { get; set; }
 
+        [Required]
         public string ChecklistId { get; set; }
 
         [ForeignKey(nameof(ChecklistId))]
         public ChecklistModel Checklist { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string State { get; set; }
     }
 }

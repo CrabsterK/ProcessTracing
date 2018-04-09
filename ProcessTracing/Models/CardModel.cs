@@ -12,11 +12,13 @@ namespace ProcessTracing.Models
         [Key]
         public string Id { get; set; }
 
+        [Required]
         public string ListId { get; set; }
 
         [ForeignKey(nameof(ListId))]
         public ListModel List { get; set;}
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }

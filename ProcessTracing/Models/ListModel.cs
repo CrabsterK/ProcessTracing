@@ -12,11 +12,13 @@ namespace ProcessTracing.Models
         [Key]
         public string Id { get; set; }
 
+        [Required]
         public string BoardId { get; set; }
 
         [ForeignKey(nameof(BoardId))]
         public BoardModel Board { get; set; }
 
+        [Required]
         public string Name { get; set; }
     }
 }

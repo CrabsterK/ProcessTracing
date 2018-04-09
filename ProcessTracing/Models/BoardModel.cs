@@ -11,12 +11,14 @@ namespace ProcessTracing.Models
         [Key]
         public string Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
         public DateTime UpdatedAt { get; set; }
 
+        [Required]
         public string Owner { get; set; }
     }
 }

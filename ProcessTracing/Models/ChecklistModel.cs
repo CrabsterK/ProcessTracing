@@ -12,11 +12,13 @@ namespace ProcessTracing.Models
         [Key]
         public string Id { get; set; }
 
+        [Required]
         public string CardId { get; set; }
 
         [ForeignKey(nameof(CardId))]
         public CardModel Card { get; set; }
 
+        [Required]
         public string Name { get; set; }
     }
 }
