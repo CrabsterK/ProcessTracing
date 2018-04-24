@@ -185,6 +185,10 @@
     <Compile Include="Models\UserCardModel.cs" />
     <Compile Include="Models\UserBoardModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IObjectConverter.cs" />
+    <Compile Include="Services\ITrelloProvider.cs" />
+    <Compile Include="Services\ObjectConverter.cs" />
+    <Compile Include="Services\TrelloProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +208,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\_ExternalLoginList.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Graph\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
