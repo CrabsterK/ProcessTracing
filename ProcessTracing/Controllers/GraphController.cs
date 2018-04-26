@@ -31,8 +31,11 @@ namespace ProcessTracing.Controllers
                     CardQuantity=qty
                 });
             }
-            //przypadek uzycia nr 3 
+
+            //przypadek uzycia nr 3, 6 i 10
             List<MemberViewModel> members = trello.GetMembers(board);
+
+
             var check = 9;
             return View();
         }

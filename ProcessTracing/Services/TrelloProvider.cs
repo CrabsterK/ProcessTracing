@@ -23,7 +23,10 @@ namespace ProcessTracing.Services
             
         }
 
-      
+        public void GetUserBoards()
+        {
+
+        }
 
         public List<ListViewModel> GetListsRelatedToBoard(string id)
         {
@@ -47,10 +50,7 @@ namespace ProcessTracing.Services
             return converter.ConvertMembers(data);
         }
 
-        public void GetUserBoards()
-        {
-
-        }
+    
 
         public string MakeRequest(string url)
         {
