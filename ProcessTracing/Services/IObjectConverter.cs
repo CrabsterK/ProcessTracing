@@ -12,4 +12,8 @@ namespace ProcessTracing.Services
     {
         List<ListViewModel> ConvertList(string response);
     }
+    interface IQuantityObjectCOnverter
+    {
+        int ConvertQuantity(string response);
+    }
 }

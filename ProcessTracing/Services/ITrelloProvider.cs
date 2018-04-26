@@ -13,6 +13,7 @@ namespace ProcessTracing.Services
         string Url(string s1);
         void GetUserBoards();
         List<ListViewModel> GetListsRelatedToBoard(string id);
+        int GetCardsQtyFromList(string id);
         string MakeRequest(string url);
     }
 }

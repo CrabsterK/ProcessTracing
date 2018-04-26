@@ -23,6 +23,8 @@ namespace ProcessTracing.Services
             
         }
 
+      
+
         public List<ListViewModel> GetListsRelatedToBoard(string id)
         {
             string url = Url(String.Format("boards/{0}/lists", id));
@@ -30,6 +32,14 @@ namespace ProcessTracing.Services
             ListObjectConverter converter = new ListObjectConverter();
             return converter.ConvertList(data);
         }
+        public int GetCardsQtyFromList(string id)
+        {
+            string url = Url(String.Format("lists/{0}/cards", id));
+            var data = MakeRequest(url);
+            QuantityObjectConverter converter = new QuantityObjectConverter();
+            return converter.ConvertQuantity(data);
+        }
+
 
         public void GetUserBoards()
         {

@@ -17,4 +17,14 @@ namespace ProcessTracing.Services
             return array.ToList();
         }
     }
+
+    public class QuantityObjectConverter : IQuantityObjectCOnverter
+    {
+        public int ConvertQuantity(string response)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            Object[] list = new JavaScriptSerializer().Deserialize<Object[]>(response);
+            return list.Length;
+        }
+    }
 }   

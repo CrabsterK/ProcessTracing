@@ -11,13 +11,27 @@ namespace ProcessTracing.Controllers
     public class GraphController : Controller
     {
         //TODO id boardu przekazane w parametrze to metody Index, na razie na sztywno
+        //tu jest na razie syf ale to do poprawy, na razie wszystkie obiekty bede zwracac tuuuuu
         string board = "5a93cf7b59f460b4b15b768e";
         public ActionResult Index()
         {
             TrelloProvider trello = new TrelloProvider();
-            //tu jest zwrocona lista list dla danej tablicy , na razie nie jest zwracana do widoku - jak roić partial view
+            //tu jest zwrocona lista list dla danej tablicy , na razie nie jest zwracana do widoku -
+            //Przypadku uzycia nr 1
             List<ListViewModel> list = trello.GetListsRelatedToBoard(board);
 
+            //przypadek użycia nr 3
+            List<CardQuantityViewMode> cardQty = new List<CardQuantityViewMode>();
+            foreach(var item in list)
+            {
+                var qty = trello.GetCardsQtyFromList(item.Id);
+                cardQty.Add(new CardQuantityViewMode
+                {
+                    ListName=item.Name,
+                    CardQuantity=qty
+                });
+            }
+            var check = 9;
             return View();
         }
         // GET: Graph
@@ -26,6 +40,7 @@ namespace ProcessTracing.Controllers
             return View();
         }
 
+      
 
     }
 }

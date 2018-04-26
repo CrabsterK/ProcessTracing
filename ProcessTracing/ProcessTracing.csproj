@@ -174,21 +174,22 @@
       <DependentUpon>201804092203005_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModel.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\BoardModel.cs" />
-    <Compile Include="Models\CardModel.cs" />
-    <Compile Include="Models\CheckItemModel.cs" />
-    <Compile Include="Models\ChecklistModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Models\ListModel.cs" />
-    <Compile Include="Models\UserCardModel.cs" />
-    <Compile Include="Models\UserBoardModel.cs" />
+    <Compile Include="fonts\Models\AccountViewModel.cs" />
+    <Compile Include="fonts\Models\ApplicationDbContext.cs" />
+    <Compile Include="fonts\Models\BoardModel.cs" />
+    <Compile Include="fonts\Models\CardModel.cs" />
+    <Compile Include="fonts\Models\CheckItemModel.cs" />
+    <Compile Include="fonts\Models\ChecklistModel.cs" />
+    <Compile Include="fonts\Models\UserModel.cs" />
+    <Compile Include="fonts\Models\ListModel.cs" />
+    <Compile Include="fonts\Models\UserCardModel.cs" />
+    <Compile Include="fonts\Models\UserBoardModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IObjectConverter.cs" />
     <Compile Include="Services\ITrelloProvider.cs" />
     <Compile Include="Services\ObjectConverter.cs" />
     <Compile Include="Services\TrelloProvider.cs" />
+    <Compile Include="Services\ViewModels\CardQuantityViewMode.cs" />
     <Compile Include="Services\ViewModels\ListViewModel.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
