@@ -39,7 +39,13 @@ namespace ProcessTracing.Services
             QuantityObjectConverter converter = new QuantityObjectConverter();
             return converter.ConvertQuantity(data);
         }
-
+        public List<MemberViewModel> GetMembers(string id)
+        {
+            string url=Url(String.Format("boards/{0}/members", id));
+            var data = MakeRequest(url);
+            MembersConverter converter = new MembersConverter();
+            return converter.ConvertMembers(data);
+        }
 
         public void GetUserBoards()
         {
@@ -61,5 +67,7 @@ namespace ProcessTracing.Services
         {
             return String.Format("https://api.trello.com/1/{0}?key={1}&token={2}", s1, key, token);            
         }
+
+      
     }
 }

@@ -16,4 +16,8 @@ namespace ProcessTracing.Services
     {
         int ConvertQuantity(string response);
     }
+    interface IMembersConverter
+    {
+        List<MemberViewModel> ConvertMembers(string response);
+    }
 }

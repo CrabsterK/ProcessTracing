@@ -191,6 +191,7 @@
     <Compile Include="Services\TrelloProvider.cs" />
     <Compile Include="Services\ViewModels\CardQuantityViewMode.cs" />
     <Compile Include="Services\ViewModels\ListViewModel.cs" />
+    <Compile Include="Services\ViewModels\MemberViewModel.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

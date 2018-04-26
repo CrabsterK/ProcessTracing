@@ -20,7 +20,7 @@ namespace ProcessTracing.Controllers
             //Przypadku uzycia nr 1
             List<ListViewModel> list = trello.GetListsRelatedToBoard(board);
 
-            //przypadek użycia nr 3
+            //przypadek użycia nr 2
             List<CardQuantityViewMode> cardQty = new List<CardQuantityViewMode>();
             foreach(var item in list)
             {
@@ -31,6 +31,8 @@ namespace ProcessTracing.Controllers
                     CardQuantity=qty
                 });
             }
+            //przypadek uzycia nr 3 
+            List<MemberViewModel> members = trello.GetMembers(board);
             var check = 9;
             return View();
         }

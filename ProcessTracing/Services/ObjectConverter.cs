@@ -27,4 +27,13 @@ namespace ProcessTracing.Services
             return list.Length;
         }
     }
-}   
+    public class MembersConverter : IMembersConverter
+    {
+        public List<MemberViewModel> ConvertMembers(string response)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            MemberViewModel[] members = new JavaScriptSerializer().Deserialize<MemberViewModel[]>(response);
+            return members.ToList();
+        }
+    }
+}

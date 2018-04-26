@@ -14,6 +14,7 @@ namespace ProcessTracing.Services
         void GetUserBoards();
         List<ListViewModel> GetListsRelatedToBoard(string id);
         int GetCardsQtyFromList(string id);
+        List<MemberViewModel> GetMembers(string id);
         string MakeRequest(string url);
     }
 }
