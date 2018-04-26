@@ -1,4 +1,5 @@
 ﻿using ProcessTracing.Models;
+using ProcessTracing.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ProcessTracing.Services
     {
         string Url(string s1);
         void GetUserBoards();
-        List<ListModel> GetListsRelatedToBoard(int id);
+        List<ListViewModel> GetListsRelatedToBoard(string id);
         string MakeRequest(string url);
     }
 }

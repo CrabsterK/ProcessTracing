@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using ProcessTracing.Models;
+using ProcessTracing.Services.ViewModels;
 
 namespace ProcessTracing.Services
 {
     public class ListObjectConverter : IListObjectConverter
     {
-        public List<ListModel> ConvertList(string response)
+        public List<ListViewModel> ConvertList(string response)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-            var obj = js.Deserialize<dynamic>(response);
-            ListModel list = new ListModel();
-            return null;
+            ListViewModel[] array = new JavaScriptSerializer().Deserialize<ListViewModel[]>(response);
+            return array.ToList();
         }
     }
-}
+}   

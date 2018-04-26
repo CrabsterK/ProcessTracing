@@ -1,4 +1,5 @@
 ﻿using ProcessTracing.Models;
+using ProcessTracing.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace ProcessTracing.Services
 {
     interface IListObjectConverter
     {
-        List<ListModel> ConvertList(string response);
+        List<ListViewModel> ConvertList(string response);
     }
 }

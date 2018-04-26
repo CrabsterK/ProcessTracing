@@ -1,4 +1,5 @@
 ﻿using ProcessTracing.Models;
+using ProcessTracing.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,11 +23,10 @@ namespace ProcessTracing.Services
             
         }
 
-        public List<ListModel> GetListsRelatedToBoard(int id)
+        public List<ListViewModel> GetListsRelatedToBoard(string id)
         {
             string url = Url(String.Format("boards/{0}/lists", id));
             var data = MakeRequest(url);
-          
             ListObjectConverter converter = new ListObjectConverter();
             return converter.ConvertList(data);
         }

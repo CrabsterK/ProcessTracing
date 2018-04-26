@@ -189,6 +189,7 @@
     <Compile Include="Services\ITrelloProvider.cs" />
     <Compile Include="Services\ObjectConverter.cs" />
     <Compile Include="Services\TrelloProvider.cs" />
+    <Compile Include="Services\ViewModels\ListViewModel.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
