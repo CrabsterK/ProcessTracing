@@ -15,7 +15,7 @@ namespace ProcessTracing.Controllers
         public ActionResult Index()
         {
             TrelloProvider trello = new TrelloProvider();
-            //tu jest zwrocona lista list dla danej tablicy -- 
+            //tu jest zwrocona lista list dla danej tablicy , na razie nie jest zwracana do widoku - jak roić partial view
             List<ListViewModel> list = trello.GetListsRelatedToBoard(board);
 
             return View();
