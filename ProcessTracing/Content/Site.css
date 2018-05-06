@@ -126,3 +126,19 @@ textarea {
     margin-right: auto !important;
     text-align: center;
 }
+.product_price {
+    margin: 20px 0;
+    padding: 5px 10px;
+    background-color: #FFF;
+    text-align: center;
+    border: 2px dashed #E0E0E0;
+}
+.price {
+    font-size: 40px;
+    font-weight: 400;
+    color: #26B99A;
+    margin: 0;
+}
+.price-tax {
+    font-size: 18px;
+}
