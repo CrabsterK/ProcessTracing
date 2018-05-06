@@ -123,9 +123,11 @@ namespace ProcessTracing.Controllers
                             where usercard.UserId == memberID
                             select user.Email;
                 i = 0;
-                for(int j = 0; j <cards.Count(); j++)
+
+                for (int j = 0; j <cards.Count(); j++)
                 {
                     i++;
+
                 }
                 model.meanOfUsersCards.Add(cards.First(), i);
             }
