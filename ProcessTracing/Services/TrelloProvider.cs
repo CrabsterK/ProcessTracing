@@ -28,21 +28,21 @@ namespace ProcessTracing.Services
 
         }
 
-        public List<ListViewModel> GetListsRelatedToBoard(string id)
+        public List<ListViewModel> Lists(string id)
         {
             string url = Url(String.Format("boards/{0}/lists", id));
             var data = MakeRequest(url);
             ListObjectConverter converter = new ListObjectConverter();
             return converter.ConvertList(data);
         }
-        public int GetCardsQtyFromList(string id)
+        public int CardsQty(string id)
         {
             string url = Url(String.Format("lists/{0}/cards", id));
             var data = MakeRequest(url);
             QuantityObjectConverter converter = new QuantityObjectConverter();
             return converter.ConvertQuantity(data);
         }
-        public List<MemberViewModel> GetMembers(string id)
+        public List<MemberViewModel> Members(string id)
         {
             string url=Url(String.Format("boards/{0}/members", id));
             var data = MakeRequest(url);
@@ -50,7 +50,7 @@ namespace ProcessTracing.Services
             return converter.ConvertMembers(data);
         }
 
-    
+       
 
         public string MakeRequest(string url)
         {

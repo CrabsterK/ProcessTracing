@@ -18,13 +18,13 @@ namespace ProcessTracing.Controllers
             TrelloProvider trello = new TrelloProvider();
             //tu jest zwrocona lista list dla danej tablicy , na razie nie jest zwracana do widoku -
             //Przypadku uzycia nr 1
-            List<ListViewModel> list = trello.GetListsRelatedToBoard(board);
+            List<ListViewModel> list = trello.Lists(board);
 
             //przypadek użycia nr 2
             List<CardQuantityViewMode> cardQty = new List<CardQuantityViewMode>();
             foreach(var item in list)
             {
-                var qty = trello.GetCardsQtyFromList(item.Id);
+                var qty = trello.CardsQty(item.Id);
                 cardQty.Add(new CardQuantityViewMode
                 {
                     ListName=item.Name,
@@ -33,7 +33,9 @@ namespace ProcessTracing.Controllers
             }
 
             //przypadek uzycia nr 3, 6 i 10
-            List<MemberViewModel> members = trello.GetMembers(board);
+            List<MemberViewModel> members = trello.Members(board);
+
+
 
 
             var check = 9;
