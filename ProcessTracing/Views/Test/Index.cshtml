@@ -1,0 +1,143 @@
+﻿@model ProcessTracing.Models.TestModel
+@{
+    ViewBag.Title = "Informację o tablicy " + @Model.boardName;
+}
+<script src="~/Scripts/Chart.js"></script>
+<div id="charts" class="siteContent chartsPage">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item "><b>Tablica:</b> @Model.boardName</li>
+            <li class="breadcrumb-item "><b>Lista:</b>  @Model.listName</li>
+            <li class="breadcrumb-item "><b>Karta:</b>  @Model.cardName</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.boardMembers</h1>
+                <span class="price-tax">Ilość przypisanych członków do tablicy <b>@Model.boardName</b></span>
+                <br>
+            </div>
+
+        </div>
+        <div class="col-sm">
+            <canvas id="pieChart"></canvas>
+            <script>
+                new Chart(document.getElementById("pieChart"), {
+                    type: 'pie',
+                    data: {
+                        labels: [@foreach (var elem in Model.meanOfUsersCards) { <text>"</text>@elem.Key<text>",</text>}],
+                        datasets: [{
+                                label: "Population (millions)",
+                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                            data: [@foreach (var elem in Model.meanOfUsersCards) { <text>"</text>@elem.Value<text>",</text>}]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Ilość kart przypisanych do użytkowników tablicy @Model.boardName'
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.sumCardsOnList</h1>
+                <span class="price-tax">Ilość kart w liście <b>@Model.listName</b></span>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.largestList</h1>
+                <span class="price-tax">Lista z największą ilością kart</span>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.cardMembers</h1>
+                <span class="price-tax">Ilość użytkowników przypisanych do karty <b>@Model.cardName</b></span>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.cardDate</h1>
+                <span class="price-tax">Data i czas utworzenia karty <b>@Model.cardName</b></span>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="product_price">
+                <ul>
+                    @foreach (var item in Model.listOfCards)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+                <span class="price-tax">Listy na tablicy <b>@Model.boardName</b></span>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.amountofActions</h1>
+                <span class="price-tax">Ilość wykonanych akcji na karcie <b>@Model.cardName</b></span>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="product_price">
+                <ul>
+                    @foreach (var item in Model.emptyLists)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+                <span class="price-tax">Puste listy z tablicy <b>@Model.boardName</b></span>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col chart" style="max-height:80% !important;">
+            <canvas id="lineChart" class=""></canvas>
+            <script>
+                new Chart(document.getElementById("lineChart"), {
+                    type: 'line',
+                    data: {
+                        labels: [@foreach (var elem in Model.cardsOnEachList) { <text>"</text>@elem.Key<text>",</text>}],
+                        datasets: [{
+                                data: [@foreach (var elem in Model.cardsOnEachList) { <text>"</text>@elem.Value<text>",</text>}],
+                            label: "Ilość kart na liscie",
+                            borderColor: "#3e95cd",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            responsive: true,
+                            display: true,
+                            text: 'Ilość kart w listach z tablicy @Model.boardName'
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+</div>

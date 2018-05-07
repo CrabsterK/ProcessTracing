@@ -129,10 +129,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-TEST_ZPI-20180402011058.mdf" />
-    <Content Include="App_Data\aspnet-TEST_ZPI-20180402011058_log.ldf">
-      <DependentUpon>aspnet-TEST_ZPI-20180402011058.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\blue-question-mark-icon.png" />
@@ -150,10 +146,17 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\processtracing-demo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\processtracing-demo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\alerts.js" />
     <Content Include="Web.config" />
@@ -166,6 +169,7 @@
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,16 +178,19 @@
       <DependentUpon>201804092203005_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="fonts\Models\AccountViewModel.cs" />
-    <Compile Include="fonts\Models\ApplicationDbContext.cs" />
-    <Compile Include="fonts\Models\BoardModel.cs" />
-    <Compile Include="fonts\Models\CardModel.cs" />
-    <Compile Include="fonts\Models\CheckItemModel.cs" />
-    <Compile Include="fonts\Models\ChecklistModel.cs" />
-    <Compile Include="fonts\Models\UserModel.cs" />
-    <Compile Include="fonts\Models\ListModel.cs" />
-    <Compile Include="fonts\Models\UserCardModel.cs" />
-    <Compile Include="fonts\Models\UserBoardModel.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\BoardModel.cs" />
+    <Compile Include="Models\CardModel.cs" />
+    <Compile Include="Models\CardsModel.cs" />
+    <Compile Include="Models\CheckItemModel.cs" />
+    <Compile Include="Models\ChecklistModel.cs" />
+    <Compile Include="Models\MemberCardModel.cs" />
+    <Compile Include="Models\TestModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\ListModel.cs" />
+    <Compile Include="Models\UserCardModel.cs" />
+    <Compile Include="Models\UserBoardModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IObjectConverter.cs" />
     <Compile Include="Services\ITrelloProvider.cs" />
@@ -216,6 +223,7 @@
     <Content Include="Views\Account\_ExternalLoginList.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -230,6 +238,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\CardModels\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
