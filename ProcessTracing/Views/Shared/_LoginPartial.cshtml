@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using ProcessTracing.Models
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -16,6 +17,8 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li id="socialLoginForm">
+            @Html.Partial("_ExternalLoginList", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </li>
     </ul>
 }
