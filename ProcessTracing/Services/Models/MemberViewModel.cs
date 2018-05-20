@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ProcessTracing.Services.Models
 {
-    public class Member
+    public class MemberViewModel
     {
         public string Id { get; set; }
         public string FullName { get; set; }

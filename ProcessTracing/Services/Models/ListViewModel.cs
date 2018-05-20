@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ProcessTracing.Services.Models
 {
-    public class List
+    public class ListViewModel
     {
         List<Card> Cards { get; set; }
         public string Id { get; set; }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ProcessTracing.Services.Models
 {
-    public class Card
+    public class CardViewModel
     {
     }
 }
