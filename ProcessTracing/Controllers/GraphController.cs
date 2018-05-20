@@ -39,6 +39,12 @@ namespace ProcessTracing.Controllers
 
 
             var check = 9;
+
+
+            //Clean all database
+            List<ListViewModel> list1 = trello.Lists(board);
+
+
             return View();
         }
         // GET: Graph
