@@ -11,5 +11,7 @@ namespace ProcessTracing.Services.ViewModels
         public string IdShort { get; set; }
         public string Name { get; set; }
         public string ID { get; set; }
+        public List<MemberViewModel> Members { get; set; }
+
     }
 }

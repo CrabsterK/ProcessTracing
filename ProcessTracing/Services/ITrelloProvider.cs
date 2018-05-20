@@ -17,5 +17,6 @@ namespace ProcessTracing.Services
         List<MemberViewModel> Members(string idBoard);
         string MakeRequest(string url);
         List<ActionViewModel> Actions(string idList);
+        List<CardViewModel> Cards(string idList);
     }
 }

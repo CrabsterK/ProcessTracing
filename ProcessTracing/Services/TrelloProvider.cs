@@ -58,6 +58,20 @@ namespace ProcessTracing.Services
             return converter.ConvertAction(data);
         }
 
+        public List<MemberViewModel> CardMembers(string idCard)
+        {
+            string url = Url(String.Format("cards/{0}/members", idCard));
+            var data = MakeRequest(url);
+            MembersConverter converter = new MembersConverter();
+            return converter.ConvertMembers(data);
+        }
+        public List<CardViewModel> Cards(string idList)
+        {
+            string url = Url(String.Format("lists/{0}/cards", idList));
+            var data = MakeRequest(url);
+            CardsConverter converter = new CardsConverter();
+            return converter.ConvertCards(data);
+        }
         public string MakeRequest(string url)
         {
             request = (HttpWebRequest)WebRequest.Create(url);

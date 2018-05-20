@@ -40,7 +40,17 @@ namespace ProcessTracing.Controllers
 
             //Clean all database
             List<ListViewModel> list1 = trello.Lists(board);
+
+
             List<ActionViewModel> actions = trello.Actions(list.FirstOrDefault().Id);
+
+
+            List<CardViewModel> cards = trello.Cards(list.FirstOrDefault().Id);
+            foreach (var item in cards)
+            {
+                List<MemberViewModel> cardMembers = trello.CardMembers(item.ID);
+                item.Members = cardMembers;
+            }
 
 
             return View();

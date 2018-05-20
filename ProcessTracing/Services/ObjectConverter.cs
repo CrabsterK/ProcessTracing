@@ -45,4 +45,13 @@ namespace ProcessTracing.Services
             return actions.ToList();
         }
     }
+    public class CardsConverter : ICardsConverter
+    {
+        public List<CardViewModel> ConvertCards(string response)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            CardViewModel[] cards = new JavaScriptSerializer().Deserialize<CardViewModel[]>(response);
+            return cards.ToList();
+        }
+    }
 }

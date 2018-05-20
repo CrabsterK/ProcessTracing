@@ -24,4 +24,8 @@ namespace ProcessTracing.Services
     {
         List<ActionViewModel> ConvertAction(string response);
     }
+    interface ICardsConverter
+    {
+        List<CardViewModel> ConvertCards(string response);
+    }
 }
