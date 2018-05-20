@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProcessTracing.Services.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,28 +9,28 @@ namespace ProcessTracing.Models
     public class TestModel
     {
 
-
         //1. Jako użytkownik, chcę mieć informację listach w danej tablicy.
         public List<string> listOfCards  = new List<string>();
 
         //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
-        public string listName;
-        public int sumCardsOnList;
+        public List<CardQuantityViewMode> listsCardsQty;
 
         //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
-        public string boardName;
-        public int boardMembers;
+        public int boardMembertsQty;
 
         //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).
-        public string cardName;
-        public int cardMembers;
+        public List<UsersCardsQty> usersCardsQty;
 
+
+        
         //5. Jako użytkownik, chcę mieć informację o średniej ilości przypisanych na użytkownika kart.
         public Dictionary<string, int> meanOfUsersCards = new Dictionary<string, int>();
 
         //6. Jako użytkownik, chcę mieć informację na której liście jest najwięcej kart.
-        public string largestList;
+        public string mostCardsListName;
+        public int mostCardsListQty;
 
+        /*
         //7. Jako użytkownik, chcę mieć informację o dacie dodania karty.
         public DateTime cardDate;
         public string cardID;
@@ -42,5 +43,6 @@ namespace ProcessTracing.Models
 
         //10. Jako użytkownik, chcę mieć informację które listy są puste.
         public List<string> emptyLists = new List<string>();
+        */
     }
 }

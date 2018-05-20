@@ -12,21 +12,7 @@ namespace ProcessTracing.Controllers
 {
     public class TestController : Controller
     {
-        private string UserID = "884a0319-7df0-4892-a8db-edc908ab0f17";
 
-        private Dictionary<string, string> boards;
-        private string boardName;
-        private string boardID;
-
-        private Dictionary<string, string> lists;
-        private string listName;
-        private string listID;
-
-        private Dictionary<string, string> cards;
-        private string cardName;
-        private string cardID;
-
-        private ApplicationDbContext db = new ApplicationDbContext();
         string board = "5a93cf7b59f460b4b15b768e";
 
         public ActionResult Index()
@@ -34,53 +20,10 @@ namespace ProcessTracing.Controllers
             TestModel model = new TestModel();
             TrelloProvider trello = new TrelloProvider();
 
-            var boardsList = (from boards in db.BoardModels
-                             join userboard in db.UserBoardModels on boards.Id equals userboard.BoardId
-                             where userboard.UserId == UserID
-                             select new {Name = boards.Name, ID = boards.Id });
-
-            boardName = boardsList.First().Name;
-            boardID = boardsList.First().ID;
-
-            var listsList = from lists in db.ListModels
-                            join boards in db.BoardModels on lists.BoardId equals boards.Id
-                            join userboard in db.UserBoardModels on boards.Id equals userboard.BoardId
-                            where userboard.UserId == UserID
-                            where boards.Id == boardID
-                            select new { Name = lists.Name, ID = lists.Id };
-            listName = listsList.First().Name;
-            listID = listsList.First().ID;
-
-
-            var cardsList = from cards in db.CardModels
-                            join lists in db.ListModels on cards.ListId equals lists.Id
-                            join boards in db.BoardModels on lists.BoardId equals boards.Id
-                            join userboard in db.UserBoardModels on boards.Id equals userboard.BoardId
-                            where userboard.UserId == UserID
-                            where boards.Id == boardID
-                            where lists.Id == listID
-                            select new { Name = cards.Name, ID = cards.Id};
-            cardName = cardsList.First().Name;
-            cardID = cardsList.First().ID;
-
-
-
-
+            List<ListViewModel> listOfList = trello.Lists(board);
+            List<MemberViewModel> members = trello.Members(board);
             //1. Jako użytkownik, chcę mieć informację listach w danej tablicy.
-            var listOfCard = from list in db.ListModels
-                             join board in db.BoardModels on list.BoardId equals board.Id
-                             join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
-                             where board.Name == boardName
-                             where boarduser.UserId == UserID
-                             select list.Name;
-            //foreach (string name in listOfCard)
-            //{
-            //    model.listOfCards.Add(name);
-            //}
-
-            // ============================ > Dane z trello
-            List<ListViewModel> boardlists = trello.Lists(board);
-            foreach( var item in boardlists)
+            foreach ( var item in listOfList)
             {
                 model.listOfCards.Add(item.Name);
             }
@@ -88,107 +31,74 @@ namespace ProcessTracing.Controllers
 
 
             //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
-            var numberOfCards = from cards in db.CardModels
-                                join list in db.ListModels on cards.ListId equals list.Id
-                                join board in db.BoardModels on list.BoardId equals board.Id
-                                join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
-                                where boarduser.UserId == UserID
-                                where board.Name == boardName
-                                where list.Name == listName
-                                select (cards.Name);
-            //model.listName = listName;
-            //var i = 0;
-            //foreach (string name in numberOfCards)
-            //{
-            //    i++;
-            //}
-            //model.sumCardsOnList = i;
-
-            // ============================ > Dane z trello
-            model.listName = boardlists.FirstOrDefault().Name;
-            var id = boardlists.FirstOrDefault().Id;
-            model.sumCardsOnList = trello.CardsQty(id);
+            model.listsCardsQty = new List<CardQuantityViewMode>();
+            foreach(var item in listOfList)
+            {
+                CardQuantityViewMode tmp = new CardQuantityViewMode();
+                tmp.ListName = item.Name;
+                tmp.CardQuantity = trello.CardsQty(item.Id);
+                model.listsCardsQty.Add(tmp);
+            }
             
-
+            
             //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
-
-            model.boardName = boardName;
-            var boardMembers = from userboard in db.UserBoardModels
-                               where userboard.BoardId == boardID
-                               select userboard.UserId;
-
-            // Dane z trello
-            var members = trello.Members(board);
+            
             var i = 0;
             foreach (var item in members)
             {
                 i++;
             }
-            model.boardMembers = i;
+            model.boardMembertsQty = i;
 
 
-            //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).
-            model.cardName = cardName;
-            var cardMember = from usercard in db.UserCardModels
-                             join card in db.CardModels on usercard.CardId equals card.Id
-                             join list in db.ListModels on card.ListId equals list.Id
-                             join board in db.BoardModels on list.BoardId equals board.Id
-                             where board.Id == boardID
-                             where card.Name == cardName
-                             select usercard.UserId;
-
-
-            // ============================ > Dane z trello
-            i = 0;
-            foreach (string name in cardMember)
+            //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).ERROR
+            List<CardViewModel> allCards = new List<CardViewModel>();
+            foreach (var item in listOfList)
             {
-                i++;
+                List<CardViewModel> listCards = trello.Cards(item.Id);
+                allCards.AddRange(listCards);
             }
-            model.cardMembers = i;
 
-            //5. Jako użytkownik, chcę mieć informację o średniej ilości przypisanych na użytkownika kart.
-            foreach(var memberID in boardMembers)
+            List<UsersCardsQty> usersCardsQty = new List<UsersCardsQty>();
+            foreach(var member in members)
             {
-                var cards = from usercard in db.UserCardModels
-                            join user in db.Users on usercard.UserId equals user.Id
-                            where usercard.UserId == memberID
-                            select user.Email;
-                i = 0;
-
-                for (int j = 0; j <cards.Count(); j++)
+                string memberName = member.Id;
+                int cardsQty = 0;
+                foreach(var card in allCards)
                 {
-                    i++;
-
+                    foreach(var cardMember in card.Members)
+                    {
+                        if (member.Id == cardMember.Id) cardsQty++;
+                    }
                 }
-                model.meanOfUsersCards.Add(cards.First(), i);
+                UsersCardsQty tmp = new UsersCardsQty();
+                tmp.MemberName = memberName;
+                tmp.CardQuantity = cardsQty;
+                usersCardsQty.Add(tmp);
             }
+            model.usersCardsQty = usersCardsQty;
+
+
+
+            //5. Jako użytkownik, chcę mieć informację o średniej ilości przypisanych na użytkownika kart. ERROR need 4
+
 
             //6. Jako użytkownik, chcę mieć informację na której liście jest najwięcej kart.
-            int max = 0;
-            string largestList="";
-            foreach(var elem in listOfCard)
+            string maxList = "";
+            int maxQty = 0;
+            foreach(var item in model.listsCardsQty)
             {
-                numberOfCards = from cards in db.CardModels
-                                join list in db.ListModels on cards.ListId equals list.Id
-                                join board in db.BoardModels on list.BoardId equals board.Id
-                                join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
-                                where boarduser.UserId == UserID
-                                where board.Name == boardName
-                                where list.Name == elem
-                                select (cards.Name);
-                i = 0;
-                foreach (string name in numberOfCards)
+                if(item.CardQuantity > maxQty)
                 {
-                    i++;
+                    maxQty = item.CardQuantity;
+                    maxList = item.ListName;
                 }
-                if (i > max)
-                {
-                    max = i;
-                    largestList = elem;
-                }
+                model.mostCardsListName = maxList;
+                model.mostCardsListQty = maxQty;
             }
-            model.largestList = largestList;
 
+
+            /*
             //7.Jako użytkownik, chcę mieć informację o dacie dodania karty.
             model.cardID = cardID;
             var cardDate = from card in db.CardModels
@@ -207,15 +117,6 @@ namespace ProcessTracing.Controllers
             //9. Jako użytkownik, chcę mieć informację o ilości kart znajdujących się na każdej liście.
             foreach(var elem in listOfCard)
             {
-                numberOfCards = from cards in db.CardModels
-                                join list in db.ListModels on cards.ListId equals list.Id
-                                join board in db.BoardModels on list.BoardId equals board.Id
-                                join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
-                                where boarduser.UserId == UserID
-                                where board.Name == boardName
-                                where list.Name == elem
-                                select (cards.Name);
-                i = 0;
                 foreach (string name in numberOfCards)
                 {
                     i++;
@@ -241,6 +142,7 @@ namespace ProcessTracing.Controllers
                 }
                 if (i == 0) model.emptyLists.Add(elem);
             }
+            */
             return View(model);
         }
     }

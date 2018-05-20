@@ -189,6 +189,7 @@
     <Compile Include="Models\CardsModel.cs" />
     <Compile Include="Models\CheckItemModel.cs" />
     <Compile Include="Models\ChecklistModel.cs" />
+    <Compile Include="Models\GraphModel.cs" />
     <Compile Include="Models\MemberCardModel.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Services\ViewModels\DataViewModel.cs" />
     <Compile Include="Services\ViewModels\ListViewModel.cs" />
     <Compile Include="Services\ViewModels\MemberViewModel.cs" />
+    <Compile Include="Services\ViewModels\UsersCardsQty.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
