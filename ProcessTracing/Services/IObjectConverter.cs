@@ -20,4 +20,8 @@ namespace ProcessTracing.Services
     {
         List<MemberViewModel> ConvertMembers(string response);
     }
+    interface IActionConverter
+    {
+        List<ActionViewModel> ConvertAction(string response);
+    }
 }

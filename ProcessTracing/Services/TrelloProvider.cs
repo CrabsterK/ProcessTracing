@@ -50,7 +50,13 @@ namespace ProcessTracing.Services
             return converter.ConvertMembers(data);
         }
 
-       
+        public List<ActionViewModel> Actions(string idList)
+        {
+            string url = Url(String.Format("lists/{0}/actions", idList));
+            var data = MakeRequest(url);
+            ActionConverter converter = new ActionConverter();
+            return converter.ConvertAction(data);
+        }
 
         public string MakeRequest(string url)
         {

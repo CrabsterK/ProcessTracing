@@ -36,4 +36,13 @@ namespace ProcessTracing.Services
             return members.ToList();
         }
     }
+    public class ActionConverter : IActionConverter
+    {
+        public List<ActionViewModel> ConvertAction(string response)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            ActionViewModel[] actions = new JavaScriptSerializer().Deserialize<ActionViewModel[]>(response);
+            return actions.ToList();
+        }
+    }
 }

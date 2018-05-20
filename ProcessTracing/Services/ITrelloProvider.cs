@@ -12,9 +12,10 @@ namespace ProcessTracing.Services
     {
         string Url(string s1);
         void GetUserBoards();
-        List<List> Lists(string idBoard);
+        List<ListViewModel> Lists(string idBoard);
         int CardsQty(string idList);
-        List<Member> Members(string idBoard);
+        List<MemberViewModel> Members(string idBoard);
         string MakeRequest(string url);
+        List<ActionViewModel> Actions(string idList);
     }
 }

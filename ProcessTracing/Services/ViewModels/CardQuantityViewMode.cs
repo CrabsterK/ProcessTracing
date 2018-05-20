@@ -11,5 +11,6 @@ namespace ProcessTracing.Services.ViewModels
         public string ListName { get; set; }
         //ilosc kart na danej liscie
         public int CardQuantity { get; set; }
+
     }
 }

@@ -1,4 +1,7 @@
 ﻿using ProcessTracing.Models;
+using ProcessTracing.Services;
+using ProcessTracing.Services.Models;
+using ProcessTracing.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +27,12 @@ namespace ProcessTracing.Controllers
         private string cardID;
 
         private ApplicationDbContext db = new ApplicationDbContext();
+        string board = "5a93cf7b59f460b4b15b768e";
 
         public ActionResult Index()
         {
             TestModel model = new TestModel();
+            TrelloProvider trello = new TrelloProvider();
 
             var boardsList = (from boards in db.BoardModels
                              join userboard in db.UserBoardModels on boards.Id equals userboard.BoardId
@@ -58,17 +63,29 @@ namespace ProcessTracing.Controllers
             cardName = cardsList.First().Name;
             cardID = cardsList.First().ID;
 
+
+
+
             //1. Jako użytkownik, chcę mieć informację listach w danej tablicy.
             var listOfCard = from list in db.ListModels
-                                join board in db.BoardModels on list.BoardId equals board.Id
-                                join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
-                                where board.Name == boardName
-                                where boarduser.UserId == UserID
-                                select list.Name;
-            foreach (string name in listOfCard)
+                             join board in db.BoardModels on list.BoardId equals board.Id
+                             join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
+                             where board.Name == boardName
+                             where boarduser.UserId == UserID
+                             select list.Name;
+            //foreach (string name in listOfCard)
+            //{
+            //    model.listOfCards.Add(name);
+            //}
+
+            // ============================ > Dane z trello
+            List<ListViewModel> boardlists = trello.Lists(board);
+            foreach( var item in boardlists)
             {
-                model.listOfCards.Add(name);
+                model.listOfCards.Add(item.Name);
             }
+
+
 
             //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
             var numberOfCards = from cards in db.CardModels
@@ -79,25 +96,37 @@ namespace ProcessTracing.Controllers
                                 where board.Name == boardName
                                 where list.Name == listName
                                 select (cards.Name);
-            model.listName = listName;
-            var i = 0;
-            foreach (string name in numberOfCards)
-            {
-                i++;
-            }
-            model.sumCardsOnList = i;
+            //model.listName = listName;
+            //var i = 0;
+            //foreach (string name in numberOfCards)
+            //{
+            //    i++;
+            //}
+            //model.sumCardsOnList = i;
+
+            // ============================ > Dane z trello
+            model.listName = boardlists.FirstOrDefault().Name;
+            var id = boardlists.FirstOrDefault().Id;
+            model.sumCardsOnList = trello.CardsQty(id);
+            
 
             //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
+
             model.boardName = boardName;
             var boardMembers = from userboard in db.UserBoardModels
                                where userboard.BoardId == boardID
                                select userboard.UserId;
-            i = 0;
-            foreach (string name in boardMembers)
+
+            // Dane z trello
+            var members = trello.Members(board);
+            var i = 0;
+            foreach (var item in members)
             {
                 i++;
             }
             model.boardMembers = i;
+
+
             //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).
             model.cardName = cardName;
             var cardMember = from usercard in db.UserCardModels
@@ -108,6 +137,8 @@ namespace ProcessTracing.Controllers
                              where card.Name == cardName
                              select usercard.UserId;
 
+
+            // ============================ > Dane z trello
             i = 0;
             foreach (string name in cardMember)
             {

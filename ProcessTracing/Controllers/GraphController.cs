@@ -35,14 +35,12 @@ namespace ProcessTracing.Controllers
             //przypadek uzycia nr 3, 6 i 10
             List<MemberViewModel> members = trello.Members(board);
 
-
-
-
             var check = 9;
 
 
             //Clean all database
             List<ListViewModel> list1 = trello.Lists(board);
+            List<ActionViewModel> actions = trello.Actions(list.FirstOrDefault().Id);
 
 
             return View();

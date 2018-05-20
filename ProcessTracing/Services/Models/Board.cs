@@ -7,7 +7,7 @@ namespace ProcessTracing.Services.Models
 {
     public class Board
     {
-        List<List> List { get; set; }
-        List<Member> Members{get; set;}
+        //List<ListViewModel> List { get; set; }
+        //List<MemberViewModel> Members{get; set;}
     }
 }
