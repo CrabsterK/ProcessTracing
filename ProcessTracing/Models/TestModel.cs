@@ -30,19 +30,19 @@ namespace ProcessTracing.Models
         public string mostCardsListName;
         public int mostCardsListQty;
 
-        /*
+        
         //7. Jako użytkownik, chcę mieć informację o dacie dodania karty.
-        public DateTime cardDate;
-        public string cardID;
+        public DateTime listCreateDate;
+        public string listCreateName;
 
+        /*
         //8. Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie.
         public int amountofActions;
 
         //9. Jako użytkownik, chcę mieć informację o ilości kart znajdujących się na każdej liście.
         public Dictionary<string, int> cardsOnEachList = new Dictionary<string, int>();
-
+        */
         //10. Jako użytkownik, chcę mieć informację które listy są puste.
         public List<string> emptyLists = new List<string>();
-        */
     }
 }

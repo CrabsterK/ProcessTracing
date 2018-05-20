@@ -18,25 +18,13 @@
         </div>
 
         <div class="col-sm">
-            <!-- WYKRES -->
-            <div class="product_price">
-                <ul>
-                    @foreach (var item in Model.listsCardsQty)
-                    {
-                        <li>@item.ListName ---- @item.CardQuantity</li>
-                    }
-                </ul>
-                <span class="price-tax"><b>Ilość kart na każdej liście</b></span>
-                <br>
-            </div>
-        </div>
-        <div class="col-sm">
             <div class="product_price">
                 <h1 class="price">@Model.boardMembertsQty</h1>
                 <span class="price-tax">Ilość użytkowników przypisanych do tablicy <b></b></span>
                 <br>
             </div>
         </div>
+
         <div class="col-sm">
             <!-- WYKRES -->
             <div class="product_price">
@@ -50,36 +38,19 @@
                 <br>
             </div>
         </div>
-        <div class="col-sm">
-            <div class="product_price">
-                <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
-                <span class="price-tax">Lista z największą ilością kart <b></b></span>
-                <br>
-            </div>
-        </div>
     </div>
-
-    <!--
     <div class="row">
-        <div class="col-sm">
-            <div class="product_price">
-                <h1 class="price"></h1>
-                <span class="price-tax">Ilość przypisanych członków do tablicy <b></b></span>
-                <br>
-            </div>
-
-        </div>
         <div class="col-sm">
             <canvas id="pieChart"></canvas>
             <script>
                 new Chart(document.getElementById("pieChart"), {
                     type: 'pie',
                     data: {
-                        labels: [],
+                        labels: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.ListName<text>",</text>}],
                         datasets: [{
                                 label: "Population (millions)",
                             backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                            data: []
+                            data: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.CardQuantity<text>",</text>}]
                         }]
                     },
                     options: {
@@ -92,15 +63,51 @@
                 });
             </script>
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm">
             <div class="product_price">
-                <h1 class="price"></h1>
-                <span class="price-tax">Ilość kart w liście <b></b></span>
+                <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
+                <span class="price-tax">Lista z największą ilością kart <b></b></span>
                 <br>
             </div>
         </div>
+
+        <div class="col-sm">
+            <div class="product_price">
+                <h1 class="price">@Model.listCreateDate</h1>
+                <span class="price-tax">Data i czas stworzenia listy <b>@Model.listCreateName</b></span>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm">
+            <!-- WYKRES -->
+            <div class="product_price">
+                <ul>
+                    @if (Model.emptyLists.Count == 0)
+                    {
+                        <p>Brak pustych list</p>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.emptyLists)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+
+                </ul>
+                <span class="price-tax"><b>Ilość kart przypisanych do użytkowników</b></span>
+                <br>
+            </div>
+        </div>
+
+
+
+
     </div>
 
+    <!--
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -129,7 +136,7 @@
         <div class="col-sm">
             <div class="product_price">
                 <ul>
-                   
+
                 </ul>
                 <span class="price-tax">Listy na tablicy <b></b></span>
                 <br>
@@ -145,7 +152,7 @@
         <div class="col-sm">
             <div class="product_price">
                 <ul>
-                   
+
                 </ul>
                 <span class="price-tax">Puste listy z tablicy <b></b></span>
                 <br>

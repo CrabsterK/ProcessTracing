@@ -28,8 +28,6 @@ namespace ProcessTracing.Controllers
                 model.listOfCards.Add(item.Name);
             }
 
-
-
             //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
             model.listsCardsQty = new List<CardQuantityViewMode>();
             foreach(var item in listOfList)
@@ -62,7 +60,7 @@ namespace ProcessTracing.Controllers
             List<UsersCardsQty> usersCardsQty = new List<UsersCardsQty>();
             foreach(var member in members)
             {
-                string memberName = member.Id;
+                string memberName = member.FullName;
                 int cardsQty = 0;
                 foreach(var card in allCards)
                 {
@@ -98,23 +96,28 @@ namespace ProcessTracing.Controllers
             }
 
 
+
+            //7.Jako użytkownik, chcę mieć informację o dacie dodania listy.
+            var id = listOfList[0].Id;
+            List<ActionViewModel> listActions = new List<ActionViewModel>();
+            listActions = trello.Actions(id);
+            DateTime date = new DateTime(1998, 04, 30);
+            model.listCreateName = listOfList[0].Name;
+            foreach(var item in listActions)
+            {
+                if (item.Type.Equals("createList")) date = item.Date;
+            }
+            
+            model.listCreateDate = date;
             /*
-            //7.Jako użytkownik, chcę mieć informację o dacie dodania karty.
-            model.cardID = cardID;
-            var cardDate = from card in db.CardModels
-                           where card.Id == cardID
-                           select card.CreatedAt;
-
-            model.cardDate = cardDate.First();
-
-            //8.Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie.
+            //8.Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie.//TODO
             var amountOfActions = from card in db.CardModels
                            where card.Id == cardID
                            select card.AmountOfActions;
 
             model.amountofActions = amountOfActions.First();
 
-            //9. Jako użytkownik, chcę mieć informację o ilości kart znajdujących się na każdej liście.
+            //9. Jako użytkownik, chcę mieć informację o ilości kart znajdujących się na każdej liście. //LIKE 2
             foreach(var elem in listOfCard)
             {
                 foreach (string name in numberOfCards)
@@ -123,26 +126,18 @@ namespace ProcessTracing.Controllers
                 }
                 model.cardsOnEachList.Add(elem, i);
             }
-
-            //10. Jako użytkownik, chcę mieć informację które listy są puste.
-            foreach (var elem in listOfCard)
-            {
-                numberOfCards = from cards in db.CardModels
-                                join list in db.ListModels on cards.ListId equals list.Id
-                                join board in db.BoardModels on list.BoardId equals board.Id
-                                join boarduser in db.UserBoardModels on board.Id equals boarduser.BoardId
-                                where boarduser.UserId == UserID
-                                where board.Name == boardName
-                                where list.Name == elem
-                                select (cards.Name);
-                i = 0;
-                foreach (string name in numberOfCards)
-                {
-                    i++;
-                }
-                if (i == 0) model.emptyLists.Add(elem);
-            }
             */
+            //10. Jako użytkownik, chcę mieć informację które listy są puste.
+            model.emptyLists = new List<string>();
+            foreach (var item in listOfList)
+            {
+                CardQuantityViewMode tmp = new CardQuantityViewMode();
+                tmp.ListName = item.Name;
+                tmp.CardQuantity = trello.CardsQty(item.Id);
+                if(tmp.CardQuantity<1) model.emptyLists.Add(item.Name);
+
+            }
+
             return View(model);
         }
     }
