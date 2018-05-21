@@ -14,7 +14,7 @@ namespace ProcessTracing.Controllers
     {
 
         string board = "5a93cf7b59f460b4b15b768e";
-
+        [Authorize]
         public ActionResult Index()
         {
             TestModel model = new TestModel();

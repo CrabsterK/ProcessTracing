@@ -151,7 +151,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\processtracing-demo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\processtracing-demo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\processtracing-demo - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\processtracing-demo - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -163,7 +165,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\alerts.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />

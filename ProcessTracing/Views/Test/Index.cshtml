@@ -6,36 +6,36 @@
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
+                <span class="price-tax"><b>Listy z Twojej tablicy</b></span>
+                <br />
                 <ul>
                     @foreach (var item in Model.listOfCards)
                     {
                         <li>@item</li>
                     }
                 </ul>
-                <span class="price-tax"><b>Listy z Twojej tablicy</b></span>
-                <br>
             </div>
         </div>
 
         <div class="col-sm">
             <div class="product_price">
+                <span class="price-tax"><b>Ilość użytkowników przypisanych do tablicy</b></span>
+                <br>
                 <h1 class="price">@Model.boardMembertsQty</h1>
-                <span class="price-tax">Ilość użytkowników przypisanych do tablicy <b></b></span>
-                <br>
             </div>
         </div>
 
         <div class="col-sm">
-            <!-- WYKRES -->
             <div class="product_price">
+                <span class="price-tax"><b>Ilość kart przypisanych do użytkowników</b></span>
+                <br>
                 <ul>
                     @foreach (var item in Model.usersCardsQty)
                     {
                         <li>@item.MemberName ---- @item.CardQuantity</li>
                     }
                 </ul>
-                <span class="price-tax"><b>Ilość kart przypisanych do użytkowników</b></span>
-                <br>
+
             </div>
         </div>
     </div>
@@ -67,22 +67,24 @@
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
-                <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
-                <span class="price-tax">Lista z największą ilością kart <b></b></span>
+                <span class="price-tax"><b>Lista z największą ilością kart </b></span>
                 <br>
+                <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
             </div>
         </div>
 
         <div class="col-sm">
             <div class="product_price">
-                <h1 class="price">@Model.listCreateDate</h1>
                 <span class="price-tax">Data i czas stworzenia listy <b>@Model.listCreateName</b></span>
                 <br>
+                <h1 class="price">@Model.listCreateDate</h1>
+
             </div>
         </div>
         <div class="col-sm">
-            <!-- WYKRES -->
             <div class="product_price">
+                <span class="price-tax"><b>Ilość kart przypisanych do użytkowników</b></span>
+                <br>
                 <ul>
                     @if (Model.emptyLists.Count == 0)
                     {
@@ -97,8 +99,7 @@
                     }
 
                 </ul>
-                <span class="price-tax"><b>Ilość kart przypisanych do użytkowników</b></span>
-                <br>
+
             </div>
         </div>
 
