@@ -10,5 +10,11 @@ namespace ProcessTracing.Services.ViewModels
         public string Id { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var item = (MemberViewModel)obj;
+            return item.Id == Id;
+        }
     }
 }

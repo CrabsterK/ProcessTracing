@@ -1,6 +1,7 @@
 ﻿using ProcessTracing.Services;
 using ProcessTracing.Services.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -52,6 +53,28 @@ namespace ProcessTracing.Controllers
                 item.Members = cardMembers;
             }
 
+            foreach (var item in cards)
+            {
+                List<ActionViewModel> actionsOnCard = trello.ActionsOnCard(item.ID);
+            }
+
+
+            //ilosc kart dla danego uzytkownika
+            Hashtable assignCardsToMember = new Hashtable();
+            foreach (var item in members)
+            {
+                assignCardsToMember.Add(item.Id, 0);
+            }
+            foreach (var item in cards)
+            {
+                foreach(var t in item.Members)
+                {
+                    var value = (int)assignCardsToMember[t.Id];
+                    value++;
+                    assignCardsToMember[t.Id] = value;
+                }
+            }
+
 
             return View();
         }
@@ -61,7 +84,8 @@ namespace ProcessTracing.Controllers
             return View();
         }
 
-      
+        //		Id	"5a4e08009adbd336a4569daa"	string
+
 
     }
 }
