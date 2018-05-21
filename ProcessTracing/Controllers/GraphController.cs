@@ -59,7 +59,7 @@ namespace ProcessTracing.Controllers
             }
 
 
-            //ilosc kart dla danego uzytkownika
+            //ilosc kart dla danego uzytkownika - tu bierze tylko dla kart z pierwszej listy
             Hashtable assignCardsToMember = new Hashtable();
             foreach (var item in members)
             {
