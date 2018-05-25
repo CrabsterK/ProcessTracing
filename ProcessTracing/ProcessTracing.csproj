@@ -187,6 +187,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AmountOfActionsByTime.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CardModel.cs" />

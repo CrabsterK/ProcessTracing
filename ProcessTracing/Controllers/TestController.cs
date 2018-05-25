@@ -4,6 +4,7 @@ using ProcessTracing.Services.Models;
 using ProcessTracing.Services.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,14 +15,39 @@ namespace ProcessTracing.Controllers
     {
 
         string board = "5a93cf7b59f460b4b15b768e";
-        [Authorize]
         public ActionResult Index()
         {
             TestModel model = new TestModel();
             TrelloProvider trello = new TrelloProvider();
-
             List<ListViewModel> listOfList = trello.Lists(board);
             List<MemberViewModel> members = trello.Members(board);
+            List<CardQuantityViewMode> listOfCardAmount = new List<CardQuantityViewMode>();
+            foreach (var list in listOfList)
+            {
+                CardQuantityViewMode cardQty = new CardQuantityViewMode();
+                cardQty.ListName = list.Name;
+                cardQty.CardQuantity = trello.CardsQty(list.Id);
+                listOfCardAmount.Add(cardQty);
+                if (cardQty.CardQuantity == 0) model.emptyLists.Add(cardQty.ListName);
+            }
+
+            List<CardViewModel> allCards = new List<CardViewModel>();
+            foreach (var item in listOfList)
+            {
+                List<CardViewModel> listCards = trello.Cards(item.Id);
+                allCards.AddRange(listCards);
+            }
+
+            List<ActionViewModel> allCardsActions = new List<ActionViewModel>();
+            foreach (var card in allCards)
+            {
+                List<ActionViewModel> cardActions = trello.ActionsOnCard(card.ID);
+                foreach(var action in cardActions)
+                {
+                    allCardsActions.Add(action);
+                }
+            }
+
             //1. Jako użytkownik, chcę mieć informację listach w danej tablicy.
             foreach ( var item in listOfList)
             {
@@ -29,18 +55,10 @@ namespace ProcessTracing.Controllers
             }
 
             //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
-            model.listsCardsQty = new List<CardQuantityViewMode>();
-            foreach(var item in listOfList)
-            {
-                CardQuantityViewMode tmp = new CardQuantityViewMode();
-                tmp.ListName = item.Name;
-                tmp.CardQuantity = trello.CardsQty(item.Id);
-                model.listsCardsQty.Add(tmp);
-            }
-            
-            
+            model.listsCardsQty = listOfCardAmount;
+
             //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
-            
+
             var i = 0;
             foreach (var item in members)
             {
@@ -50,12 +68,8 @@ namespace ProcessTracing.Controllers
 
 
             //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).ERROR
-            List<CardViewModel> allCards = new List<CardViewModel>();
-            foreach (var item in listOfList)
-            {
-                List<CardViewModel> listCards = trello.Cards(item.Id);
-                allCards.AddRange(listCards);
-            }
+            /*
+            
 
             List<UsersCardsQty> usersCardsQty = new List<UsersCardsQty>();
             foreach(var member in members)
@@ -69,12 +83,13 @@ namespace ProcessTracing.Controllers
                         if (member.Id == cardMember.Id) cardsQty++;
                     }
                 }
-                UsersCardsQty tmp = new UsersCardsQty();
-                tmp.MemberName = memberName;
-                tmp.CardQuantity = cardsQty;
-                usersCardsQty.Add(tmp);
+                UsersCardsQty tmpUserQty = new UsersCardsQty();
+                tmpUserQty.MemberName = memberName;
+                tmpUserQty.CardQuantity = cardsQty;
+                usersCardsQty.Add(tmpUserQty);
             }
             model.usersCardsQty = usersCardsQty;
+            */
 
 
 
@@ -109,35 +124,78 @@ namespace ProcessTracing.Controllers
             }
             
             model.listCreateDate = date;
-            /*
-            //8.Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie.//TODO
-            var amountOfActions = from card in db.CardModels
-                           where card.Id == cardID
-                           select card.AmountOfActions;
+            
+            //8.Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie w czasie.//TODO
 
-            model.amountofActions = amountOfActions.First();
 
-            //9. Jako użytkownik, chcę mieć informację o ilości kart znajdujących się na każdej liście. //LIKE 2
-            foreach(var elem in listOfCard)
-            {
-                foreach (string name in numberOfCards)
-                {
-                    i++;
-                }
-                model.cardsOnEachList.Add(elem, i);
-            }
-            */
             //10. Jako użytkownik, chcę mieć informację które listy są puste.
-            model.emptyLists = new List<string>();
-            foreach (var item in listOfList)
-            {
-                CardQuantityViewMode tmp = new CardQuantityViewMode();
-                tmp.ListName = item.Name;
-                tmp.CardQuantity = trello.CardsQty(item.Id);
-                if(tmp.CardQuantity<1) model.emptyLists.Add(item.Name);
+            //przeniesione
 
+            //99
+            Dictionary<string, int> memberAmount = new Dictionary<string, int>();
+            foreach(var action in allCardsActions)
+            {
+                int value;
+                if (memberAmount.TryGetValue(action.IdMemberCreator, out value))
+                {
+                    value++;
+                    memberAmount[action.IdMemberCreator] = value;
+                }
+                else
+                {
+                    value = 0;
+                    memberAmount.Add(action.IdMemberCreator, value);
+                }
+            }
+            foreach(var item in memberAmount)
+            {
+                foreach(var member in members)
+                {
+                    if (member.Id == item.Key) model.amountOfCardsActions.Add(member.FullName, item.Value);
+                }
             }
 
+
+            //10000
+            
+            HashSet<int> weeks = new HashSet<int>();
+            foreach (var action in allCardsActions)
+            {
+                DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                DateTime date1 = action.Date;
+                Calendar cal = dfi.Calendar;
+                weeks.Add(cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
+            }
+            List<int> sortedWeeks = weeks.ToList();
+            sortedWeeks.Sort();
+            model.sortedWeeks = sortedWeeks;
+
+            List<AmountOfActionsByTime> listOfAmountOfActionsByTime = new List<AmountOfActionsByTime>();
+            int amount = 0;
+            foreach (var member in members)
+            {
+                AmountOfActionsByTime tmpObj = new AmountOfActionsByTime();
+                tmpObj.member = member.FullName;
+                foreach (var week in sortedWeeks) 
+                {
+                    amount = 0;
+                        foreach(var action in allCardsActions)
+                        {
+                            var m=0;
+                            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                            DateTime date1 = action.Date;
+                            Calendar cal = dfi.Calendar;
+                            m = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                            if ((m == week)&&(member.Id==action.IdMemberCreator)) amount++;
+                        }  
+                    tmpObj.amountOfActions.Add(amount);
+                    
+                }
+                listOfAmountOfActionsByTime.Add(tmpObj);
+            }
+            model.listOfAmountOfActionsByTime = listOfAmountOfActionsByTime;
+
+            
             return View(model);
         }
     }

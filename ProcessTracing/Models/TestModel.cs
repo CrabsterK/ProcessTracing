@@ -18,8 +18,8 @@ namespace ProcessTracing.Models
         //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
         public int boardMembertsQty;
 
-        //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).
-        public List<UsersCardsQty> usersCardsQty;
+        //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).ERROR
+        //public List<UsersCardsQty> usersCardsQty;
 
 
         
@@ -44,5 +44,13 @@ namespace ProcessTracing.Models
         */
         //10. Jako użytkownik, chcę mieć informację które listy są puste.
         public List<string> emptyLists = new List<string>();
+
+
+        //99
+        public Dictionary<string, int> amountOfCardsActions = new Dictionary<string, int>();
+
+        //10000
+        public List<AmountOfActionsByTime> listOfAmountOfActionsByTime = new List<AmountOfActionsByTime>();
+        public List<int> sortedWeeks = new List<int>();
     }
 }
