@@ -161,8 +161,40 @@
                         options: {
                           title: {
                             display: true,
-                            text: 'Ilość akcji wykonanych przez każdego z użytkowników w czasie (tygodnie)'
-                          }
+                            text: 'Ilość akcji wykonanych przez każdego z użytkowników w czasie'
+                            },
+                            scales: {
+                                xAxes: [{ //linie x
+                                    gridLines: {
+                                        zeroLineWidth: 1, //linia x=0
+                                        zeroLineColor: 'rgba(0,0,0,0.3)', //kolor lini x=0
+                                        color: "rgba(0, 0, 0, 0.05)", //kolor linii
+                                        lineWidth: 1 //szerokośc linii
+                                    },
+                                    display: true, //czy pokazywac dolne opisy jednostek
+                                    scaleLabel: { //tytuł osi x
+                                        display: true,
+                                        labelString: 'Numer tygodnia',
+                                        fontSize: 12,
+                                        fontStyle: 'bold'
+                                    },
+                                }],
+                                yAxes: [{ //linie y
+                                    gridLines: {
+                                        zeroLineWidth: 1,
+                                        zeroLineColor: 'rgba(0,0,0,0.3)',
+                                        color: "rgba(0, 0, 0, 0.05)",
+                                        lineWidth: 1
+                                    },
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Ilość akcji wykonanych na kartach',
+                                        fontSize: 13,
+                                        fontStyle: 'bold'
+                                    }
+                                }]
+                            }
                         }
                     });
                     function getRandomColor() {
