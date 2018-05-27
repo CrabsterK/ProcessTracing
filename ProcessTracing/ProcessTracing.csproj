@@ -137,9 +137,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\blue-question-mark-icon.png" />
     <Content Include="Content\Images\BrandIcon.png" />
-    <Content Include="Content\Images\carusel1.jpeg" />
-    <Content Include="Content\Images\carusel2.jpeg" />
-    <Content Include="Content\Images\carusel3.jpg" />
+    <Content Include="Content\Images\caruse1.jpg" />
+    <Content Include="Content\Images\caruse2.jpg" />
+    <Content Include="Content\Images\caruse3.jpg" />
     <Content Include="Content\Images\listStyle.png" />
     <Content Include="Content\Images\money.png" />
     <Content Include="Content\Images\reload.png" />
