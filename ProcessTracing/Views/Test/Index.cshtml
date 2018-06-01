@@ -3,6 +3,24 @@
 <script src="~/Scripts/Chart.js"></script>
 <div id="charts" class="siteContent chartsPage">
 
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Wybierz tablicę
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @{
+                int counter = 0;
+                foreach (var item in Model.listOfBoards)
+                {
+                    <a class="dropdown-item" id="@counter" href="/Test/Index?boardIndex=@counter">@item.Value</a>
+                    counter = counter + 1;
+                }
+            }
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -31,11 +49,11 @@
                 <br>
                 <ul>
                     @*
-                    @foreach (var item in Model.usersCardsQty)
-                    {
-                        <li>@item.MemberName ---- @item.CardQuantity</li>
-                    }
-                        *@
+                        @foreach (var item in Model.usersCardsQty)
+                        {
+                            <li>@item.MemberName ---- @item.CardQuantity</li>
+                        }
+                    *@
                 </ul>
 
             </div>
@@ -105,20 +123,20 @@
             </div>
         </div>
         @*@
-        <div class="col-sm">
-            <div class="product_price">
-                <span class="price-tax">Tygodnie</span>
-                <br>
-                @foreach (var item in Model.tyg)
-                {
-                    @item<text><br /></text>
-                }
+            <div class="col-sm">
+                <div class="product_price">
+                    <span class="price-tax">Tygodnie</span>
+                    <br>
+                    @foreach (var item in Model.tyg)
+                    {
+                        @item<text><br /></text>
+                    }
 
+                </div>
             </div>
-        </div>
         *@
     </div>
-    
+
     <div class="row">
         <div class="col-sm">
             <canvas id="pieChart2"></canvas>
@@ -144,7 +162,7 @@
             </script>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -207,6 +225,6 @@
                     }
                 </script>
             </div>
-        </div >
-    </div >
-</div >
+        </div>
+    </div>
+</div>

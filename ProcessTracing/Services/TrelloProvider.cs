@@ -15,8 +15,8 @@ namespace ProcessTracing.Services
         HttpWebRequest request;
 
         //tymczasowe przechowyanie
-        string key = "f27de49532bf871ca048feeb9e3ea8dc";
-        string token = "442ec0924e45b0b9b1453aecc9007cbd47fec9fb873a16be2cdcc45e7a82122f";
+        string key = "0a9c02bbe066e66428ef7d8689020999";
+        string token = "8b04a1fd25679ff3ecd2335a1b519e9dd6830ec542e0f970b46b84ac8efa6830";
 
         public TrelloProvider()
         {
@@ -64,6 +64,14 @@ namespace ProcessTracing.Services
             var data = MakeRequest(url);
             ActionConverter converter = new ActionConverter();
             return converter.ConvertAction(data);
+        }
+
+        public List<BoardViewModel> AllBoards()
+        {
+            string url = Url(String.Format("/member/me/boards"));
+            var data = MakeRequest(url);
+            BoardsConverter converter = new BoardsConverter();
+            return converter.ConvertBoards(data);
         }
 
         public List<MemberViewModel> CardMembers(string idCard)

@@ -13,12 +13,27 @@ namespace ProcessTracing.Controllers
 {
     public class TestController : Controller
     {
+        TestModel model = new TestModel();
+        TrelloProvider trello = new TrelloProvider();
 
-        string board = "5a93cf7b59f460b4b15b768e";
-        public ActionResult Index()
+
+        public void AddBoards()
         {
-            TestModel model = new TestModel();
-            TrelloProvider trello = new TrelloProvider();
+             List<BoardViewModel> boardsList = trello.AllBoards();
+            foreach (var item in boardsList)
+            {
+                model.listOfBoards.Add(item.Id, item.Name);
+            }
+        }
+
+
+       // string board = "5a93cf7b59f460b4b15b768e";
+        public ActionResult Index(int boardIndex = 0)
+        {
+            //// 97 lista boardów danego użytkownika
+            AddBoards();
+            string board = model.listOfBoards.Keys.ElementAt(boardIndex);
+
             List<ListViewModel> listOfList = trello.Lists(board);
             List<MemberViewModel> members = trello.Members(board);
             List<CardQuantityViewMode> listOfCardAmount = new List<CardQuantityViewMode>();
@@ -113,18 +128,21 @@ namespace ProcessTracing.Controllers
 
 
             //7.Jako użytkownik, chcę mieć informację o dacie dodania listy.
-            var id = listOfList[0].Id;
-            List<ActionViewModel> listActions = new List<ActionViewModel>();
-            listActions = trello.Actions(id);
-            DateTime date = new DateTime(1998, 04, 30);
-            model.listCreateName = listOfList[0].Name;
-            foreach(var item in listActions)
+            if (listOfList.Count > 0)
             {
-                if (item.Type.Equals("createList")) date = item.Date;
+                var id = listOfList[0].Id;
+                List<ActionViewModel> listActions = new List<ActionViewModel>();
+                listActions = trello.Actions(id);
+                DateTime date = new DateTime(1998, 04, 30);
+                model.listCreateName = listOfList[0].Name;
+                foreach (var item in listActions)
+                {
+                    if (item.Type.Equals("createList")) date = item.Date;
+                }
+
+                model.listCreateDate = date;
             }
-            
-            model.listCreateDate = date;
-            
+
             //8.Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie w czasie.//TODO
 
 

@@ -36,6 +36,17 @@ namespace ProcessTracing.Services
             return members.ToList();
         }
     }
+
+    public class BoardsConverter : IBoardsConverter
+    {
+        public List<BoardViewModel> ConvertBoards(string response)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            BoardViewModel[] boards = new JavaScriptSerializer().Deserialize<BoardViewModel[]>(response);
+            return boards.ToList();
+        }
+    }
+
     public class ActionConverter : IActionConverter
     {
         public List<ActionViewModel> ConvertAction(string response)

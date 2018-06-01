@@ -20,6 +20,10 @@ namespace ProcessTracing.Services
     {
         List<MemberViewModel> ConvertMembers(string response);
     }
+    interface IBoardsConverter
+    {
+        List<BoardViewModel> ConvertBoards(string response);
+    }
     interface IActionConverter
     {
         List<ActionViewModel> ConvertAction(string response);

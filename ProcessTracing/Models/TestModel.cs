@@ -52,5 +52,9 @@ namespace ProcessTracing.Models
         //10000
         public List<AmountOfActionsByTime> listOfAmountOfActionsByTime = new List<AmountOfActionsByTime>();
         public List<int> sortedWeeks = new List<int>();
+
+
+        // 97 lista boardów danego użytkownika
+        public Dictionary<string, string> listOfBoards = new Dictionary<string, string>();
     }
 }
