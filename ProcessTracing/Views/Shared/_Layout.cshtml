@@ -23,10 +23,21 @@
                 <li class="nav-item"><a href="/" class="nav-link">Strona główna</a></li>
                 <li class="nav-item"><a href="/about" class="nav-link">O projekcie</a></li>
                 @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item"><a href="/Test" class="nav-link">Wykresy</a></li>
-                }
-
+                 {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/Test" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Wykresy
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/Test">Process Tracing</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/">Sekretarz</a>
+                            <a class="dropdown-item" href="/">Drony</a>
+                            <a class="dropdown-item" href="/">Komiks</a>
+                        </div>
+                    </li>
+                    
+                   }
             </ul>
         </div>
         <form class="form-inline">
