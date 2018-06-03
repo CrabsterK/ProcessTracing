@@ -1,6 +1,20 @@
 ﻿@model ProcessTracing.Models.TestModel
 
 <script src="~/Scripts/Chart.js"></script>
+<script>
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+    }
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
 <div id="charts" class="siteContent chartsPage">
 
 
@@ -24,85 +38,6 @@
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
-                <span class="price-tax"><b>Listy z Twojej tablicy</b></span>
-                <br />
-                <ul>
-                    @foreach (var item in Model.listOfCards)
-                    {
-                        <li>@item</li>
-                    }
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-sm">
-            <div class="product_price">
-                <span class="price-tax"><b>Ilość użytkowników przypisanych do tablicy</b></span>
-                <br>
-                <h1 class="price">@Model.boardMembertsQty</h1>
-            </div>
-        </div>
-
-        <div class="col-sm">
-            <div class="product_price">
-                <span class="price-tax"><b>Ilość kart przypisanych do użytkowników</b></span>
-                <br>
-                <ul>
-                    @*
-                        @foreach (var item in Model.usersCardsQty)
-                        {
-                            <li>@item.MemberName ---- @item.CardQuantity</li>
-                        }
-                    *@
-                </ul>
-
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            <canvas id="pieChart"></canvas>
-            <script>
-                new Chart(document.getElementById("pieChart"), {
-                    type: 'pie',
-                    data: {
-                        labels: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.ListName<text>",</text>}],
-                        datasets: [{
-                                label: "Population (millions)",
-                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                            data: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.CardQuantity<text>",</text>}]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        title: {
-                            display: true,
-                            text: 'Ilość kart przypisanych do użytkowników tablicy'
-                        }
-                    }
-                });
-            </script>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            <div class="product_price">
-                <span class="price-tax"><b>Lista z największą ilością kart </b></span>
-                <br>
-                <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
-            </div>
-        </div>
-
-        <div class="col-sm">
-            <div class="product_price">
-                <span class="price-tax">Data i czas stworzenia listy <b>@Model.listCreateName</b></span>
-                <br>
-                <h1 class="price">@Model.listCreateDate</h1>
-
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="product_price">
                 <span class="price-tax"><b>Puste listy</b></span>
                 <br>
                 <ul>
@@ -122,6 +57,70 @@
 
             </div>
         </div>
+        <div class="col-sm">
+            <div class="product_price">
+                <span class="price-tax"><b>Listy z Twojej tablicy</b></span>
+                <br />
+                <ul>
+                    @foreach (var item in Model.listOfCards)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="product_price">
+                <span class="price-tax"><b>Ilość użytkowników przypisanych do tablicy</b></span>
+                <br>
+                <h1 class="price">@Model.boardMembertsQty</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <canvas id="pieChart"></canvas>
+            <script>
+                new Chart(document.getElementById("pieChart"), {
+                    type: 'pie',
+                    data: {
+                        labels: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.ListName<text>",</text>}],
+                        datasets: [{
+                            label: "Ilość kart",
+                            backgroundColor: [random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba()],
+                            data: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.CardQuantity<text>",</text>}]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Ilość kart przypisanych do danej listy'
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="product_price">
+                <span class="price-tax"><b>Lista z największą ilością kart </b></span>
+                <br>
+                <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
+            </div>
+        </div>
+        @*
+        <div class="col-sm">
+            <div class="product_price">
+                <span class="price-tax">Data i czas stworzenia listy <b>@Model.listCreateName</b></span>
+                <br>
+                <h1 class="price">@Model.listCreateDate</h1>
+
+            </div>
+        </div>
+        *@
         @*@
             <div class="col-sm">
                 <div class="product_price">
@@ -142,12 +141,12 @@
             <canvas id="pieChart2"></canvas>
             <script>
                 new Chart(document.getElementById("pieChart2"), {
-                    type: 'pie',
+                    type: 'polarArea',
                     data: {
                         labels: [@foreach (var item in Model.amountOfCardsActions){<text>"</text>@item.Key<text>",</text>}],
                         datasets: [{
-                                label: "Population (millions)",
-                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                            label: "Ilość akcji",
+                            backgroundColor: [random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba()],
                             data: [@foreach (var item in Model.amountOfCardsActions){<text>"</text>@item.Value<text>",</text>}]
                         }]
                     },
@@ -215,18 +214,12 @@
                             }
                         }
                     });
-                    function getRandomColor() {
-                        var letters = '0123456789ABCDEF';
-                        var color = '#';
-                        for (var i = 0; i < 6; i++) {
-                            color += letters[Math.floor(Math.random() * 16)];
-                        }
-                        return color;
-                    }
+                    
                 </script>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -237,7 +230,7 @@
                         data: {
                           labels: [@foreach(var week in @Model.sortedWeeks) { <text>"</text>@week<text>",</text>}],
                           datasets: [
-	                    @foreach (var item in Model.listOfCreatedCardsByTime) { 
+	                    @foreach (var item in Model.listOfCreatedCardsByTime) {
                             <text>{
                                   label: "</text> @item.member <text>",
                                   backgroundColor: random_rgba(),
@@ -255,7 +248,7 @@
                         options: {
                           title: {
                             display: true,
-                            text: 'Ilość kart stworzonych przed użytkowników w czasie (tygodnie)'
+                            text: 'Ilość kart, które użytkownik utworzył w czasie (tygodnie)'
                             },
                             scales: {
                                 xAxes: [{ //linie x
@@ -295,6 +288,77 @@
                         var o = Math.round, r = Math.random, s = 255;
                         return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
                     }
+                </script>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="product_price">
+                <canvas id="horizontal-chart" width="800" height="450"></canvas>
+                <script>
+                    new Chart(document.getElementById("horizontal-chart").getContext("2d"), {
+                        type: 'horizontalBar',
+                        data: {
+                          labels: [@foreach(var week in @Model.sortedWeeks) { <text>"</text>@week<text>",</text>}],
+                          datasets: [
+	                    @foreach (var item in Model.listOfAmountOfAddInTime) {
+                            <text>{
+                                  label: "</text> @item.member <text>",
+                                  backgroundColor: random_rgba(),
+                                  pointBorderColor: random_rgba(),
+                                  borderWidth: 2,
+                                  backgroundColor: random_rgba(),
+                                  pointRadius: 4,
+                                  pointHoverBorderWidth: 3,
+                                  pointHoverBackgroundColor: random_rgba(),
+                                  pointHoverBorderColor: random_rgba(),
+                                  data: [</text> foreach (var amountOfWeek in item.amountOfActions) {@amountOfWeek<text>,</text>}<text>]
+                              },</text>}
+                          ]
+                        },
+                        options: {
+                          title: {
+                            display: true,
+                            text: 'Ilość akcji dodania danego użytkownika do kart'
+                            },
+                            scales: {
+                                xAxes: [{ //linie x
+                                    gridLines: {
+                                        zeroLineWidth: 1, //linia x=0
+                                        zeroLineColor: 'rgba(0,0,0,0.3)', //kolor lini x=0
+                                        color: "rgba(0, 0, 0, 0.05)", //kolor linii
+                                        lineWidth: 1 //szerokośc linii
+                                    },
+                                    display: true, //czy pokazywac dolne opisy jednostek
+                                    scaleLabel: { //tytuł osi x
+                                        display: true,
+                                        labelString: 'Ilość kart, do których użytkownik został przypisany',
+                                        fontSize: 12,
+                                        fontStyle: 'bold'
+                                    },
+                                }],
+                                yAxes: [{ //linie y
+                                    gridLines: {
+                                        zeroLineWidth: 1,
+                                        zeroLineColor: 'rgba(0,0,0,0.3)',
+                                        color: "rgba(0, 0, 0, 0.05)",
+                                        lineWidth: 1
+                                    },
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Numer tygodnia',
+                                        fontSize: 13,
+                                        fontStyle: 'bold'
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    
                 </script>
             </div>
         </div>

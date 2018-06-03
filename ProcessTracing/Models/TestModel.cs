@@ -59,5 +59,8 @@ namespace ProcessTracing.Models
 
         //Kto stworzył ile kart
         public List<AmountOfActionsByTime> listOfCreatedCardsByTime = new List<AmountOfActionsByTime>();
+
+        //Kto ile razy został dodany
+        public List<AmountOfActionsByTime> listOfAmountOfAddInTime = new List<AmountOfActionsByTime>();
     }
 }
