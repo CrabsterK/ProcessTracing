@@ -13,14 +13,35 @@ namespace ProcessTracing.Services
     public class TrelloProvider : ITrelloProvider
     {
         HttpWebRequest request;
+        string key;
+        string token;
 
-        //tymczasowe przechowyanie
-        string key = "0a9c02bbe066e66428ef7d8689020999";
-        string token = "8b04a1fd25679ff3ecd2335a1b519e9dd6830ec542e0f970b46b84ac8efa6830";
-
-        public TrelloProvider()
+        public TrelloProvider(int projectIndex)
         {
-            
+            if (projectIndex == 0)
+            {
+                //Process Tracing
+                key = "0a9c02bbe066e66428ef7d8689020999";
+                token = "8b04a1fd25679ff3ecd2335a1b519e9dd6830ec542e0f970b46b84ac8efa6830";
+            }
+            if (projectIndex == 1)
+            {
+                //Grupa Sekretarz
+                key = "4a77263de1a63c913967e143caf868dd";
+                token = "e839b17d42063c3ad2ab85290bc5eeebe9b448751bb0806df96574b927b9dd83";
+            }
+            if (projectIndex == 2)
+            {
+                //Grupa Drony
+                key = "f66823405f06612b2b89aa8d08bd7303";
+                token = "b5b1f181546949cf513f99f38d5c712c27ad3ec8cc7a98824c5b4e16981c127d";
+            }
+            if (projectIndex == 3)
+            {
+                //Grupa Komiks
+                key = "92971f42e3f6f7331ad38950971e3092";
+                token = "d803fe35b527def9e29fb86060f5100ddc7a16f3185ed6857b3084baa9436d50";
+            }
         }
 
         public void GetUserBoards()

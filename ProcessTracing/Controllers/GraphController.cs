@@ -16,7 +16,7 @@ namespace ProcessTracing.Controllers
         string board = "5a93cf7b59f460b4b15b768e";
         public ActionResult Index()
         {
-            TrelloProvider trello = new TrelloProvider();
+            TrelloProvider trello = new TrelloProvider(0);
             //tu jest zwrocona lista list dla danej tablicy , na razie nie jest zwracana do widoku -
             //Przypadku uzycia nr 1
             List<ListViewModel> list = trello.Lists(board);

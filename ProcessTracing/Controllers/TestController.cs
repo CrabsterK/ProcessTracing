@@ -13,8 +13,9 @@ namespace ProcessTracing.Controllers
 {
     public class TestController : Controller
     {
+        static int projectIndex = 0; // default projectIndex
+        static TrelloProvider trello = new TrelloProvider(projectIndex); // default projectIndex
         TestModel model = new TestModel();
-        TrelloProvider trello = new TrelloProvider();
 
 
         public void AddBoards()
@@ -27,9 +28,9 @@ namespace ProcessTracing.Controllers
         }
 
 
-       // string board = "5a93cf7b59f460b4b15b768e";
-        public ActionResult Index(int boardIndex = 0)
+        public ActionResult Index(int boardIndex = 0, int projectInd = 0)
         {
+            trello = new TrelloProvider(projectInd);
             //// 97 lista boardów danego użytkownika
             AddBoards();
             string board = model.listOfBoards.Keys.ElementAt(boardIndex);

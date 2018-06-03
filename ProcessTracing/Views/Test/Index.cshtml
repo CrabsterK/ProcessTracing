@@ -27,7 +27,7 @@
                 int counter = 0;
                 foreach (var item in Model.listOfBoards)
                 {
-                    <a class="dropdown-item" id="@counter" href="/Test/Index?boardIndex=@counter">@item.Value</a>
+            <a class="dropdown-item" id="@counter" href="/Test/Index?boardIndex=@counter&projectInd=@Request.Params["projectInd"]">@item.Value</a>
                     counter = counter + 1;
                 }
             }
