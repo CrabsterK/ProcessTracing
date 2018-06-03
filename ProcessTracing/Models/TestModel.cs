@@ -56,5 +56,8 @@ namespace ProcessTracing.Models
 
         // 97 lista boardów danego użytkownika
         public Dictionary<string, string> listOfBoards = new Dictionary<string, string>();
+
+        //Kto stworzył ile kart
+        public List<AmountOfActionsByTime> listOfCreatedCardsByTime = new List<AmountOfActionsByTime>();
     }
 }

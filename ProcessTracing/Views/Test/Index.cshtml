@@ -227,4 +227,76 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="product_price">
+                <canvas id="radar-chart" width="800" height="450"></canvas>
+                <script>
+                    new Chart(document.getElementById("radar-chart").getContext("2d"), {
+                        type: 'radar',
+                        data: {
+                          labels: [@foreach(var week in @Model.sortedWeeks) { <text>"</text>@week<text>",</text>}],
+                          datasets: [
+	                    @foreach (var item in Model.listOfCreatedCardsByTime) { 
+                            <text>{
+                                  label: "</text> @item.member <text>",
+                                  backgroundColor: random_rgba(),
+                                  pointBorderColor: random_rgba(),
+                                  borderWidth: 2,
+                                  backgroundColor: random_rgba(),
+                                  pointRadius: 4,
+                                  pointHoverBorderWidth: 3,
+                                  pointHoverBackgroundColor: random_rgba(),
+                                  pointHoverBorderColor: random_rgba(),
+                                  data: [</text> foreach (var amountOfWeek in item.amountOfActions) {@amountOfWeek<text>,</text>}<text>]
+                              },</text>}
+                          ]
+                        },
+                        options: {
+                          title: {
+                            display: true,
+                            text: 'Ilość kart stworzonych przed użytkowników w czasie (tygodnie)'
+                            },
+                            scales: {
+                                xAxes: [{ //linie x
+                                    gridLines: {
+                                        zeroLineWidth: 1, //linia x=0
+                                        zeroLineColor: 'rgba(0,0,0,0.3)', //kolor lini x=0
+                                        color: "rgba(0, 0, 0, 0.05)", //kolor linii
+                                        lineWidth: 1 //szerokośc linii
+                                    },
+                                    display: false, //czy pokazywac dolne opisy jednostek
+                                    scaleLabel: { //tytuł osi x
+                                        display: true,
+                                        labelString: 'Numer tygodnia',
+                                        fontSize: 12,
+                                        fontStyle: 'bold'
+                                    },
+                                }],
+                                yAxes: [{ //linie y
+                                    gridLines: {
+                                        zeroLineWidth: 1,
+                                        zeroLineColor: 'rgba(0,0,0,0.3)',
+                                        color: "rgba(0, 0, 0, 0.05)",
+                                        lineWidth: 1
+                                    },
+                                    display: false,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Ilość stworzonych kart',
+                                        fontSize: 13,
+                                        fontStyle: 'bold'
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    function random_rgba() {
+                        var o = Math.round, r = Math.random, s = 255;
+                        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
 </div>

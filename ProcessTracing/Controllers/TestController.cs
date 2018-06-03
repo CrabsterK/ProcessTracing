@@ -213,6 +213,32 @@ namespace ProcessTracing.Controllers
             }
             model.listOfAmountOfActionsByTime = listOfAmountOfActionsByTime;
 
+            //kto stworzyl ile kart
+            List<AmountOfActionsByTime> listOfCreatedCardsByTime = new List<AmountOfActionsByTime>();
+            amount = 0;
+            foreach (var member in members)
+            {
+                AmountOfActionsByTime tmpObj = new AmountOfActionsByTime();
+                tmpObj.member = member.FullName;
+                foreach (var week in sortedWeeks)
+                {
+                    amount = 0;
+                    foreach (var action in allCardsActions)
+                    {
+                            var m = 0;
+                            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                            DateTime date1 = action.Date;
+                            Calendar cal = dfi.Calendar;
+                            m = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                            if ((m == week) && (member.Id == action.IdMemberCreator)&&(action.Type.Equals("createCard"))) amount++;
+                    }
+                    tmpObj.amountOfActions.Add(amount);
+
+                }
+                listOfCreatedCardsByTime.Add(tmpObj);
+            }
+            model.listOfCreatedCardsByTime = listOfCreatedCardsByTime;
+
             
             return View(model);
         }
