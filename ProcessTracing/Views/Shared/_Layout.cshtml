@@ -1,5 +1,6 @@
 ﻿@using ProcessTracing.Models
-
+@using Microsoft.AspNet.Identity
+@using ProcessTracing.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
                 <li class="nav-item"><a href="/" class="nav-link">Strona główna</a></li>
                 <li class="nav-item"><a href="/about" class="nav-link">O projekcie</a></li>
                 @if (User.Identity.IsAuthenticated)
-                 {
+                {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="/Test" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Wykresy
@@ -36,13 +37,32 @@
                             <a class="dropdown-item" href="/">Komiks</a>
                         </div>
                     </li>
-                    
-                   }
+
+                }
             </ul>
         </div>
-        <form class="form-inline">
-            @Html.Partial("_LoginPartial")
-        </form>
+        @if (Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                </ul>
+            }
+        }
+        else
+        {
+            <ul class="nav navbar-nav navbar-right">
+                <li id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginList", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </li>
+            </ul>
+        }
     </nav>
 
     <div class="container">
