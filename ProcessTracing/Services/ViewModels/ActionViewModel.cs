@@ -12,6 +12,7 @@ namespace ProcessTracing.Services.ViewModels
         public DataViewModel Data { get; set; }
         public string Type { get; set; }
         public DateTime Date { get; set; }
+        public MemberViewModel Member { get; set; } = null;
         public MemberViewModel MemberCreator { get; set; }
     }
 }
