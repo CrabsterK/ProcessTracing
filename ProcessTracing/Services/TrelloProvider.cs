@@ -30,21 +30,21 @@ namespace ProcessTracing.Services
 
         public List<ListViewModel> Lists(string id)
         {
-            string url = Url(String.Format("boards/{0}/lists", id));
+            string url = Url(String.Format("boards/{0}/lists?", id));
             var data = MakeRequest(url);
             ListObjectConverter converter = new ListObjectConverter();
             return converter.ConvertList(data);
         }
         public int CardsQty(string id)
         {
-            string url = Url(String.Format("lists/{0}/cards", id));
+            string url = Url(String.Format("lists/{0}/cards?", id));
             var data = MakeRequest(url);
             QuantityObjectConverter converter = new QuantityObjectConverter();
             return converter.ConvertQuantity(data);
         }
         public List<MemberViewModel> Members(string id)
         {
-            string url=Url(String.Format("boards/{0}/members", id));
+            string url=Url(String.Format("boards/{0}/members?", id));
             var data = MakeRequest(url);
             MembersConverter converter = new MembersConverter();
             return converter.ConvertMembers(data);
@@ -52,7 +52,7 @@ namespace ProcessTracing.Services
 
         public List<ActionViewModel> Actions(string idList)
         {
-            string url = Url(String.Format("lists/{0}/actions", idList));
+            string url = Url(String.Format("lists/{0}/actions?", idList));
             var data = MakeRequest(url);
             ActionConverter converter = new ActionConverter();
             return converter.ConvertAction(data);
@@ -60,7 +60,7 @@ namespace ProcessTracing.Services
 
         public List<ActionViewModel> ActionsOnCard(string idCard)
         {
-            string url = Url(String.Format("cards/{0}/actions", idCard));
+            string url = Url(String.Format("cards/{0}/actions?filter=all&", idCard));
             var data = MakeRequest(url);
             ActionConverter converter = new ActionConverter();
             return converter.ConvertAction(data);
@@ -68,7 +68,7 @@ namespace ProcessTracing.Services
 
         public List<BoardViewModel> AllBoards()
         {
-            string url = Url(String.Format("/member/me/boards"));
+            string url = Url(String.Format("/member/me/boards?"));
             var data = MakeRequest(url);
             BoardsConverter converter = new BoardsConverter();
             return converter.ConvertBoards(data);
@@ -76,14 +76,14 @@ namespace ProcessTracing.Services
 
         public List<MemberViewModel> CardMembers(string idCard)
         {
-            string url = Url(String.Format("cards/{0}/members", idCard));
+            string url = Url(String.Format("cards/{0}/members?", idCard));
             var data = MakeRequest(url);
             MembersConverter converter = new MembersConverter();
             return converter.ConvertMembers(data);
         }
         public List<CardViewModel> Cards(string idList)
         {
-            string url = Url(String.Format("lists/{0}/cards", idList));
+            string url = Url(String.Format("lists/{0}/cards?", idList));
             var data = MakeRequest(url);
             CardsConverter converter = new CardsConverter();
             return converter.ConvertCards(data);
@@ -93,7 +93,8 @@ namespace ProcessTracing.Services
             request = (HttpWebRequest)WebRequest.Create(url);
             request.MediaType = "GET";
             HttpWebResponse respone = request.GetResponse() as HttpWebResponse;
-            var dataStream = respone.GetResponseStream();
+
+            var dataStream =  respone.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             return reader.ReadToEnd();
 
@@ -101,9 +102,10 @@ namespace ProcessTracing.Services
 
         public string Url(string s1)
         {
-            return String.Format("https://api.trello.com/1/{0}?key={1}&token={2}", s1, key, token);            
+            return String.Format("https://api.trello.com/1/{0}key={1}&token={2}", s1, key, token);            
         }
 
-      
+        //            return String.Format("https://api.trello.com/1/{0}?key={1}&token={2}", s1, key, token);            
+
     }
 }

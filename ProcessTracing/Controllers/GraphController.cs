@@ -67,7 +67,7 @@ namespace ProcessTracing.Controllers
             }
             foreach (var item in cards)
             {
-                foreach(var t in item.Members)
+                foreach (var t in item.Members)
                 {
                     var value = (int)assignCardsToMember[t.Id];
                     value++;
