@@ -231,7 +231,6 @@
     <Content Include="Views\Graph\Charts.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Board\Index.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
