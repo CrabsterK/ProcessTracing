@@ -8,59 +8,36 @@ namespace ProcessTracing.Models
 {
     public class TestModel
     {
+        public string boardName;
 
-        //1. Jako użytkownik, chcę mieć informację listach w danej tablicy.
         public List<string> listOfCards  = new List<string>();
 
-        //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
         public List<CardQuantityViewMode> listsCardsQty;
 
-        //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
         public int boardMembertsQty;
 
-        //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).ERROR
-        //public List<UsersCardsQty> usersCardsQty;
-
-
-        
-        //5. Jako użytkownik, chcę mieć informację o średniej ilości przypisanych na użytkownika kart.
         public Dictionary<string, int> meanOfUsersCards = new Dictionary<string, int>();
 
-        //6. Jako użytkownik, chcę mieć informację na której liście jest najwięcej kart.
         public string mostCardsListName;
+
         public int mostCardsListQty;
 
-        
-        //7. Jako użytkownik, chcę mieć informację o dacie dodania karty.
         public DateTime listCreateDate;
+
         public string listCreateName;
 
-        /*
-        //8. Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie.
-        public int amountofActions;
-
-        //9. Jako użytkownik, chcę mieć informację o ilości kart znajdujących się na każdej liście.
-        public Dictionary<string, int> cardsOnEachList = new Dictionary<string, int>();
-        */
-        //10. Jako użytkownik, chcę mieć informację które listy są puste.
         public List<string> emptyLists = new List<string>();
 
-
-        //99
         public Dictionary<string, int> amountOfCardsActions = new Dictionary<string, int>();
 
-        //10000
         public List<AmountOfActionsByTime> listOfAmountOfActionsByTime = new List<AmountOfActionsByTime>();
+
         public List<int> sortedWeeks = new List<int>();
 
-
-        // 97 lista boardów danego użytkownika
         public Dictionary<string, string> listOfBoards = new Dictionary<string, string>();
 
-        //Kto stworzył ile kart
         public List<AmountOfActionsByTime> listOfCreatedCardsByTime = new List<AmountOfActionsByTime>();
 
-        //Kto ile razy został dodany
         public List<AmountOfActionsByTime> listOfAmountOfAddInTime = new List<AmountOfActionsByTime>();
     }
 }

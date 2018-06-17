@@ -14,7 +14,7 @@ namespace ProcessTracing.Controllers
     public class TestController : Controller
     {
         static int projectIndex = 0; // default projectIndex
-        static TrelloProvider trello = new TrelloProvider(projectIndex); // default projectIndex
+        static TrelloProvider trello = new TrelloProvider(projectIndex);
         TestModel model = new TestModel();
 
 
@@ -27,16 +27,18 @@ namespace ProcessTracing.Controllers
             }
         }
 
-
         public ActionResult Index(int boardIndex = 0, int projectInd = 0)
         {
             trello = new TrelloProvider(projectInd);
-            //// 97 lista boardów danego użytkownika
             AddBoards();
-            string board = model.listOfBoards.Keys.ElementAt(boardIndex);
+            string boardID = model.listOfBoards.Keys.ElementAt(boardIndex);
+            model.boardName = model.listOfBoards.Values.ElementAt(boardIndex);
 
-            List<ListViewModel> listOfList = trello.Lists(board);
-            List<MemberViewModel> members = trello.Members(board);
+
+            List<ListViewModel> listOfList = trello.Lists(boardID);
+            List<MemberViewModel> members = trello.Members(boardID);
+
+
             List<CardQuantityViewMode> listOfCardAmount = new List<CardQuantityViewMode>();
             foreach (var list in listOfList)
             {
@@ -64,16 +66,12 @@ namespace ProcessTracing.Controllers
                 }
             }
 
-            //1. Jako użytkownik, chcę mieć informację listach w danej tablicy.
             foreach ( var item in listOfList)
             {
                 model.listOfCards.Add(item.Name);
             }
 
-            //2. Jako użytkownik, chcę mieć informację o sumie kart na danej liscie.
             model.listsCardsQty = listOfCardAmount;
-
-            //3. Jako użytkownik, chcę mieć informację o ilości przypisanych członków do dla danej tablicy.
 
             var i = 0;
             foreach (var item in members)
@@ -82,37 +80,6 @@ namespace ProcessTracing.Controllers
             }
             model.boardMembertsQty = i;
 
-
-            //4. Jako użytkownik, chcę mieć informację o ilości przypisanych do użytkowników kart ( procentowo/ liczbowo).ERROR
-            /*
-            
-
-            List<UsersCardsQty> usersCardsQty = new List<UsersCardsQty>();
-            foreach(var member in members)
-            {
-                string memberName = member.FullName;
-                int cardsQty = 0;
-                foreach(var card in allCards)
-                {
-                    foreach(var cardMember in card.Members)
-                    {
-                        if (member.Id == cardMember.Id) cardsQty++;
-                    }
-                }
-                UsersCardsQty tmpUserQty = new UsersCardsQty();
-                tmpUserQty.MemberName = memberName;
-                tmpUserQty.CardQuantity = cardsQty;
-                usersCardsQty.Add(tmpUserQty);
-            }
-            model.usersCardsQty = usersCardsQty;
-            */
-
-
-
-            //5. Jako użytkownik, chcę mieć informację o średniej ilości przypisanych na użytkownika kart. ERROR need 4
-
-
-            //6. Jako użytkownik, chcę mieć informację na której liście jest najwięcej kart.
             string maxList = "";
             int maxQty = 0;
             foreach(var item in model.listsCardsQty)
@@ -128,7 +95,6 @@ namespace ProcessTracing.Controllers
 
 
 
-            //7.Jako użytkownik, chcę mieć informację o dacie dodania listy.
             if (listOfList.Count > 0)
             {
                 var id = listOfList[0].Id;
@@ -144,13 +110,6 @@ namespace ProcessTracing.Controllers
                 model.listCreateDate = date;
             }
 
-            //8.Jako użytkownik, chce mieć informację o ilości akcji wykonanych na karcie w czasie.//TODO
-
-
-            //10. Jako użytkownik, chcę mieć informację które listy są puste.
-            //przeniesione
-
-            //99
             Dictionary<string, int> memberAmount = new Dictionary<string, int>();
             foreach(var action in allCardsActions)
             {
@@ -174,8 +133,6 @@ namespace ProcessTracing.Controllers
                 }
             }
 
-
-            //10000
             
             HashSet<int> weeks = new HashSet<int>();
             foreach (var action in allCardsActions)
@@ -241,7 +198,6 @@ namespace ProcessTracing.Controllers
             }
             model.listOfCreatedCardsByTime = listOfCreatedCardsByTime;
 
-            //Kto ile razy został dodany
             
             List<AmountOfActionsByTime> listOfAmountOfAddInTime = new List<AmountOfActionsByTime>();
             amount = 0;

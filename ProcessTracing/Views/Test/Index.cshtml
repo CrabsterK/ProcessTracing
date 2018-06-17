@@ -16,11 +16,9 @@
     }
 </script>
 <div id="charts" class="siteContent chartsPage">
-
-
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Wybierz tablicę
+            @Model.boardName
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             @{
@@ -33,8 +31,6 @@
             }
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -52,9 +48,7 @@
                             <li>@item</li>
                         }
                     }
-
                 </ul>
-
             </div>
         </div>
         <div class="col-sm">
@@ -69,7 +63,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="col-sm">
             <div class="product_price">
                 <span class="price-tax"><b>Ilość użytkowników przypisanych do tablicy</b></span>
@@ -88,7 +81,7 @@
                         labels: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.ListName<text>",</text>}],
                         datasets: [{
                             label: "Ilość kart",
-                            backgroundColor: [random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba()],
+                            backgroundColor: [random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba()],
                             data: [@foreach (var item in Model.listsCardsQty){<text>"</text>@item.CardQuantity<text>",</text>}]
                         }]
                     },
@@ -111,31 +104,7 @@
                 <h1 class="price">@Model.mostCardsListName - @Model.mostCardsListQty</h1>
             </div>
         </div>
-        @*
-        <div class="col-sm">
-            <div class="product_price">
-                <span class="price-tax">Data i czas stworzenia listy <b>@Model.listCreateName</b></span>
-                <br>
-                <h1 class="price">@Model.listCreateDate</h1>
-
-            </div>
-        </div>
-        *@
-        @*@
-            <div class="col-sm">
-                <div class="product_price">
-                    <span class="price-tax">Tygodnie</span>
-                    <br>
-                    @foreach (var item in Model.tyg)
-                    {
-                        @item<text><br /></text>
-                    }
-
-                </div>
-            </div>
-        *@
     </div>
-
     <div class="row">
         <div class="col-sm">
             <canvas id="pieChart2"></canvas>
@@ -146,7 +115,7 @@
                         labels: [@foreach (var item in Model.amountOfCardsActions){<text>"</text>@item.Key<text>",</text>}],
                         datasets: [{
                             label: "Ilość akcji",
-                            backgroundColor: [random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba()],
+                            backgroundColor: [random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba(), random_rgba()],
                             data: [@foreach (var item in Model.amountOfCardsActions){<text>"</text>@item.Value<text>",</text>}]
                         }]
                     },
@@ -161,7 +130,6 @@
             </script>
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -219,7 +187,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
@@ -297,7 +264,7 @@
     <div class="row">
         <div class="col-sm">
             <div class="product_price">
-                <canvas id="horizontal-chart" width="800" height="450"></canvas>
+                <canvas id="horizontal-chart"></canvas>
                 <script>
                     new Chart(document.getElementById("horizontal-chart").getContext("2d"), {
                         type: 'horizontalBar',
